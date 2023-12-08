@@ -16,7 +16,7 @@ website:
       - text: "Report"
         href: report.qmd
       - text: "Shiny web application"
-        href: shiny_web_app.qmd
+        href: s.qmd
       - text: "Appendices"
         href: appendices.qmd
       - text: "About"
