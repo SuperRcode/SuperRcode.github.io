@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>School Enrollment Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Analyzing Impact of COVID-19 on NYC School Populations</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="dropdown-header">
+ <span class="menu-text">Home</span></li>
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">TEAM NAME</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./proposal.html" rel="" target="">
+ <span class="menu-text">Proposal</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./explore.html" rel="" target="">
+ <span class="menu-text">Exploratory data analysis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./presentation.html" rel="" target="">
+ <span class="menu-text">Presentation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./report.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Report</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./appendices.html" rel="" target="">
+ <span class="menu-text">Appendices</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
+  <li><a href="#data-import-and-cleaning" id="toc-data-import-and-cleaning" class="nav-link" data-scroll-target="#data-import-and-cleaning">Data import and cleaning</a></li>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
+  <ul class="collapse">
+  <li><a href="#data-dictionary" id="toc-data-dictionary" class="nav-link" data-scroll-target="#data-dictionary">Data Dictionary</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#approach-and-justifications" id="toc-approach-and-justifications" class="nav-link" data-scroll-target="#approach-and-justifications">Approach and Justifications</a></li>
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a>
+  <ul class="collapse">
+  <li><a href="#how-did-covid-19-affect-school-total-enrollment" id="toc-how-did-covid-19-affect-school-total-enrollment" class="nav-link" data-scroll-target="#how-did-covid-19-affect-school-total-enrollment">How did covid-19 affect school total enrollment?</a></li>
+  <li><a href="#how-did-covid-19-affect-school-mean-enrollment" id="toc-how-did-covid-19-affect-school-mean-enrollment" class="nav-link" data-scroll-target="#how-did-covid-19-affect-school-mean-enrollment">How did Covid-19 affect school mean enrollment?</a></li>
+  <li><a href="#how-did-covid-19-effect-the-poverty-and-economic-needs-levels-of-students" id="toc-how-did-covid-19-effect-the-poverty-and-economic-needs-levels-of-students" class="nav-link" data-scroll-target="#how-did-covid-19-effect-the-poverty-and-economic-needs-levels-of-students">How did covid-19 effect the poverty and economic needs levels of students?</a></li>
+  <li><a href="#did-covid-19-disproportionately-affect-school-enrollment-of-minorities-students-student-of-color" id="toc-did-covid-19-disproportionately-affect-school-enrollment-of-minorities-students-student-of-color" class="nav-link" data-scroll-target="#did-covid-19-disproportionately-affect-school-enrollment-of-minorities-students-student-of-color">Did Covid-19 disproportionately affect school enrollment of minorities students/ student of color?</a></li>
+  <li><a href="#did-covid-19-disproportionately-affect-school-enrollment-of-students-with-disabilities" id="toc-did-covid-19-disproportionately-affect-school-enrollment-of-students-with-disabilities" class="nav-link" data-scroll-target="#did-covid-19-disproportionately-affect-school-enrollment-of-students-with-disabilities">Did Covid-19 disproportionately affect school enrollment of students with disabilities?</a></li>
+  <li><a href="#did-covid-19-disproportionately-affect-school-enrollment-of-students-who-have-challenges-in-leaning-with-the-english-language" id="toc-did-covid-19-disproportionately-affect-school-enrollment-of-students-who-have-challenges-in-leaning-with-the-english-language" class="nav-link" data-scroll-target="#did-covid-19-disproportionately-affect-school-enrollment-of-students-who-have-challenges-in-leaning-with-the-english-language">Did Covid-19 disproportionately affect school enrollment of students who have challenges in leaning with the English language?</a></li>
+  </ul></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a>
+  <ul class="collapse">
+  <li><a href="#design-process" id="toc-design-process" class="nav-link" data-scroll-target="#design-process">Design process</a></li>
+  </ul></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a>
+  <ul class="collapse">
+  <li><a href="#data-limitations" id="toc-data-limitations" class="nav-link" data-scroll-target="#data-limitations">Data limitations</a></li>
+  <li><a href="#analysis-limitations" id="toc-analysis-limitations" class="nav-link" data-scroll-target="#analysis-limitations">Analysis Limitations</a></li>
+  </ul></li>
+  <li><a href="#additional-information-on-the-dataset" id="toc-additional-information-on-the-dataset" class="nav-link" data-scroll-target="#additional-information-on-the-dataset">Additional Information on the Dataset</a>
+  <ul class="collapse">
+  <li><a href="#why-was-this-dataset-created" id="toc-why-was-this-dataset-created" class="nav-link" data-scroll-target="#why-was-this-dataset-created">Why was this dataset created?</a></li>
+  <li><a href="#who-funded-the-creation-of-the-dataset" id="toc-who-funded-the-creation-of-the-dataset" class="nav-link" data-scroll-target="#who-funded-the-creation-of-the-dataset">Who funded the creation of the dataset?</a></li>
+  <li><a href="#what-processes-might-have-influenced-what-data-was-observed-and-recorded-and-what-was-not" id="toc-what-processes-might-have-influenced-what-data-was-observed-and-recorded-and-what-was-not" class="nav-link" data-scroll-target="#what-processes-might-have-influenced-what-data-was-observed-and-recorded-and-what-was-not">What processes might have influenced what data was observed and recorded and what was not?</a></li>
+  <li><a href="#if-people-are-involved-were-they-aware-of-the-data-collection-and-if-so-what-purpose-did-they-expect-the-data-to-be-used-for" id="toc-if-people-are-involved-were-they-aware-of-the-data-collection-and-if-so-what-purpose-did-they-expect-the-data-to-be-used-for" class="nav-link" data-scroll-target="#if-people-are-involved-were-they-aware-of-the-data-collection-and-if-so-what-purpose-did-they-expect-the-data-to-be-used-for">If people are involved, were they aware of the data collection and if so, what purpose did they expect the data to be used for?</a></li>
+  </ul></li>
+  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">School Enrollment Project</h1>
+<p class="subtitle lead">Report</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>The data contains demographic information for NYC schools between the years 2013 (2013-14) and 2021 (2021-22). Our objective for this project is to explore how Covid-19 affects the NYC schools. We will consider how COVID affected education through attributes such as total and average school enrollment, enrollment of students of different race, enrollment of students with disability, economic status of students, etc. Covid-19 started affecting schools in the US during March 2019.</p>
+</section>
+<section id="load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages">Load packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(snakecase)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'lubridate'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ forcats 1.0.0     ✔ tibble  3.2.1
+✔ purrr   1.0.2     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+</section>
+<section id="data-import-and-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-import-and-cleaning">Data import and cleaning</h2>
+<p>We chose two datasets from the NYC department of education. The first dataset “nyc_schools_13_to_18” contains enrollment information of NYC schools from 2013 to 2018. The second dataset “nyc_schools_17_to_22” enrollment information of NYC schools from 2017 to 2022</p>
+<p><a href="https://data.cityofnewyork.us/Education/2013-2018-Demographic-Snapshot-School/s52a-8aq6">nyc_schools_13_to_18</a></p>
+<p><a href="https://data.cityofnewyork.us/Education/2017-18-2021-22-Demographic-Snapshot/c7ru-d68s">nyc_schools_17_to_22</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importing initial datasets </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>nyc_schools_13_to_18 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"2013_-_2018_Demographic_Snapshot_School_20231024.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 8972 Columns: 39
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (4): DBN, School Name, Year, Economic Need Index
+dbl (35): Total Enrollment, Grade PK (Half Day &amp; Full Day), Grade K, Grade 1...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nyc_schools_17_to_22 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"2017-18__-_2021-22_Demographic_Snapshot_20231020.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 9251 Columns: 44
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (6): DBN, School Name, Year, # Poverty, % Poverty, Economic Need Index
+dbl (38): Total Enrollment, Grade 3K, Grade PK (Half Day &amp; Full Day), Grade ...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(nyc_schools_13_to_18)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 8,972
+Columns: 39
+$ DBN                                          &lt;chr&gt; "01M015", "01M015", "01M0…
+$ `School Name`                                &lt;chr&gt; "P.S. 015 Roberto Clement…
+$ Year                                         &lt;chr&gt; "2013-14", "2014-15", "20…
+$ `Total Enrollment`                           &lt;dbl&gt; 190, 183, 176, 178, 190, …
+$ `Grade PK (Half Day &amp; Full Day)`             &lt;dbl&gt; 26, 18, 14, 17, 17, 36, 3…
+$ `Grade K`                                    &lt;dbl&gt; 39, 27, 32, 28, 28, 39, 4…
+$ `Grade 1`                                    &lt;dbl&gt; 39, 47, 33, 33, 32, 38, 4…
+$ `Grade 2`                                    &lt;dbl&gt; 21, 31, 39, 27, 33, 36, 3…
+$ `Grade 3`                                    &lt;dbl&gt; 16, 19, 23, 31, 23, 45, 3…
+$ `Grade 4`                                    &lt;dbl&gt; 26, 17, 17, 24, 31, 47, 4…
+$ `Grade 5`                                    &lt;dbl&gt; 23, 24, 18, 18, 26, 44, 4…
+$ `Grade 6`                                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 7`                                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 8`                                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 9`                                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 10`                                   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 11`                                   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 12`                                   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `# Female`                                   &lt;dbl&gt; 93, 84, 83, 83, 99, 141, …
+$ `% Female`                                   &lt;dbl&gt; 48.9, 45.9, 47.2, 46.6, 5…
+$ `# Male`                                     &lt;dbl&gt; 97, 99, 93, 95, 91, 144, …
+$ `% Male`                                     &lt;dbl&gt; 51.1, 54.1, 52.8, 53.4, 4…
+$ `# Asian`                                    &lt;dbl&gt; 9, 8, 9, 14, 20, 41, 30, …
+$ `% Asian`                                    &lt;dbl&gt; 4.7, 4.4, 5.1, 7.9, 10.5,…
+$ `# Black`                                    &lt;dbl&gt; 72, 65, 57, 51, 52, 56, 4…
+$ `% Black`                                    &lt;dbl&gt; 37.9, 35.5, 32.4, 28.7, 2…
+$ `# Hispanic`                                 &lt;dbl&gt; 104, 107, 105, 105, 110, …
+$ `% Hispanic`                                 &lt;dbl&gt; 54.7, 58.5, 59.7, 59.0, 5…
+$ `# Multiple Race Categories Not Represented` &lt;dbl&gt; 2, 1, 3, 4, 2, 10, 8, 3, …
+$ `% Multiple Race Categories Not Represented` &lt;dbl&gt; 1.1, 0.5, 1.7, 2.2, 1.1, …
+$ `# White`                                    &lt;dbl&gt; 3, 2, 2, 4, 6, 30, 27, 16…
+$ `% White`                                    &lt;dbl&gt; 1.6, 1.1, 1.1, 2.2, 3.2, …
+$ `# Students with Disabilities`               &lt;dbl&gt; 65, 64, 60, 51, 45, 89, 8…
+$ `% Students with Disabilities`               &lt;dbl&gt; 34.2, 35.0, 34.1, 28.7, 2…
+$ `# English Language Learners`                &lt;dbl&gt; 19, 17, 16, 12, 8, 25, 18…
+$ `% English Language Learners`                &lt;dbl&gt; 10.0, 9.3, 9.1, 6.7, 4.2,…
+$ `# Poverty`                                  &lt;dbl&gt; 171, 169, 149, 152, 161, …
+$ `% Poverty`                                  &lt;dbl&gt; 90.0, 92.3, 84.7, 85.4, 8…
+$ `Economic Need Index`                        &lt;chr&gt; "No Data", "93.5%", "89.6…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(nyc_schools_17_to_22)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 9,251
+Columns: 44
+$ DBN                              &lt;chr&gt; "01M015", "01M015", "01M015", "01M015…
+$ `School Name`                    &lt;chr&gt; "P.S. 015 Roberto Clemente", "P.S. 01…
+$ Year                             &lt;chr&gt; "2017-18", "2018-19", "2019-20", "202…
+$ `Total Enrollment`               &lt;dbl&gt; 190, 174, 190, 193, 179, 257, 249, 23…
+$ `Grade 3K`                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0…
+$ `Grade PK (Half Day &amp; Full Day)` &lt;dbl&gt; 17, 13, 14, 17, 15, 13, 10, 16, 13, 7…
+$ `Grade K`                        &lt;dbl&gt; 28, 20, 29, 29, 30, 34, 30, 25, 23, 2…
+$ `Grade 1`                        &lt;dbl&gt; 32, 33, 28, 29, 26, 38, 39, 27, 25, 2…
+$ `Grade 2`                        &lt;dbl&gt; 33, 30, 38, 27, 24, 42, 43, 39, 27, 2…
+$ `Grade 3`                        &lt;dbl&gt; 23, 30, 33, 30, 22, 46, 41, 45, 38, 2…
+$ `Grade 4`                        &lt;dbl&gt; 31, 20, 29, 32, 33, 42, 44, 42, 44, 3…
+$ `Grade 5`                        &lt;dbl&gt; 26, 28, 19, 29, 29, 42, 42, 42, 42, 3…
+$ `Grade 6`                        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 7`                        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 8`                        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 9`                        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 10`                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 11`                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `Grade 12`                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ `# Female`                       &lt;dbl&gt; 99, 85, 94, 101, 96, 114, 114, 110, 9…
+$ `% Female`                       &lt;dbl&gt; 0.521, 0.489, 0.495, 0.523, 0.536, 0.…
+$ `# Male`                         &lt;dbl&gt; 91, 89, 96, 92, 83, 143, 135, 126, 11…
+$ `% Male`                         &lt;dbl&gt; 0.479, 0.511, 0.505, 0.477, 0.464, 0.…
+$ `# Asian`                        &lt;dbl&gt; 20, 24, 27, 26, 21, 23, 14, 11, 13, 1…
+$ `% Asian`                        &lt;dbl&gt; 0.105, 0.138, 0.142, 0.135, 0.117, 0.…
+$ `# Black`                        &lt;dbl&gt; 52, 48, 56, 53, 50, 49, 52, 49, 41, 3…
+$ `% Black`                        &lt;dbl&gt; 0.274, 0.276, 0.295, 0.275, 0.279, 0.…
+$ `# Hispanic`                     &lt;dbl&gt; 110, 95, 96, 102, 93, 166, 156, 148, …
+$ `% Hispanic`                     &lt;dbl&gt; 0.579, 0.546, 0.505, 0.528, 0.520, 0.…
+$ `# Multi-Racial`                 &lt;dbl&gt; 1, 0, 0, 1, 3, 3, 8, 8, 7, 8, 14, 12,…
+$ `% Multi-Racial`                 &lt;dbl&gt; 0.005, 0.000, 0.000, 0.005, 0.017, 0.…
+$ `# Native American`              &lt;dbl&gt; 1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 4, 3, 5…
+$ `% Native American`              &lt;dbl&gt; 0.005, 0.006, 0.011, 0.000, 0.000, 0.…
+$ `# White`                        &lt;dbl&gt; 6, 6, 9, 11, 12, 16, 18, 19, 17, 21, …
+$ `% White`                        &lt;dbl&gt; 0.032, 0.034, 0.047, 0.057, 0.067, 0.…
+$ `# Missing Race/Ethnicity Data`  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 1, 1, 1…
+$ `% Missing Race/Ethnicity Data`  &lt;dbl&gt; 0.000, 0.000, 0.000, 0.000, 0.000, 0.…
+$ `# Students with Disabilities`   &lt;dbl&gt; 49, 39, 46, 44, 38, 90, 102, 94, 87, …
+$ `% Students with Disabilities`   &lt;dbl&gt; 0.258, 0.224, 0.242, 0.228, 0.212, 0.…
+$ `# English Language Learners`    &lt;dbl&gt; 8, 8, 17, 21, 11, 8, 8, 8, 9, 6, 86, …
+$ `% English Language Learners`    &lt;dbl&gt; 0.042, 0.046, 0.089, 0.109, 0.061, 0.…
+$ `# Poverty`                      &lt;chr&gt; "161", "147", "155", "161", "150", "1…
+$ `% Poverty`                      &lt;chr&gt; "84.7%", "84.5%", "81.6%", "83.4%", "…
+$ `Economic Need Index`            &lt;chr&gt; "89.0%", "88.8%", "86.7%", "86.4%", "…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># deleting all rows with the years "2017-18" in nyc_schools_13_to_18</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># information is already contained in nyc_schools_17_to_22</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>nyc_schools_13_to_18_fix <span class="ot">&lt;-</span> nyc_schools_13_to_18 <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">!=</span> <span class="st">"2017-18"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In nyc_schools_13_to_18, “# Poverty” and “% Poverty” are both in double type. In nyc_schools_17_to_22, both are in character strings because there are schools with above 95% poverty, which is written as “Above 95%” in both the “# Poverty” and “% Poverty” and columns.</p>
+<p>The chunk below turns the “# Poverty” and “% Poverty” columns in into character strings in nyc_schools_13_to_18 so the two dataset can be merged</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>nyc_schools_13_to_18_fix <span class="ot">&lt;-</span> nyc_schools_13_to_18_fix <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">% Poverty</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.character</span>(<span class="st">`</span><span class="at">% Poverty</span><span class="st">`</span>), </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at"># Poverty</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.character</span>(<span class="st">`</span><span class="at"># Poverty</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creating a joined dataset </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># joining the two data sets.</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(nyc_schools_13_to_18_fix, nyc_schools_17_to_22) <span class="sc">|&gt;</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># turn values in Year column from YYYY-YY to YYYY. E.g. 2013-24 to 2013 </span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"Year"</span> <span class="ot">=</span> <span class="fu">substr</span>(Year, <span class="dv">1</span>, <span class="dv">4</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(DBN)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># turning all column names to snakecase</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(schools) <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, <span class="fu">colnames</span>(schools)))</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># deleting  all '#' in column names to avoid confusing R</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(schools) <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"#_"</span>, <span class="st">""</span>, <span class="fu">colnames</span>(schools))</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># turning all "%" in column names to "percent" to avoid confusing R</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(schools) <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"%"</span>, <span class="st">"percent"</span>, <span class="fu">colnames</span>(schools))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># organizing columns so they make sense </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># deleting grade_3k because most schools don't have information on it. </span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>grade_3k) <span class="sc">|&gt;</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># putting all the race and ethnicity columns next to each other </span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="st">`</span><span class="at">percent_white</span><span class="st">`</span>, </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">multi-racial</span><span class="st">`</span>, </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">percent_multi-racial</span><span class="st">`</span>, </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">native_american</span><span class="st">`</span>, </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">percent_native_american</span><span class="st">`</span>, </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">missing_race/ethnicity_data</span><span class="st">`</span>, </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">percent_missing_race/ethnicity_data</span><span class="st">`</span>,           </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>         <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cleaning column content structure and type </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># turning all "No Data" to N/A in economic_need_index column </span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">economic_need_index =</span> <span class="fu">ifelse</span>(economic_need_index <span class="sc">==</span> <span class="st">"No Data"</span>, <span class="cn">NA</span>, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                                      economic_need_index)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># turning percentage and character values to numeric </span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">percent_poverty</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">"%"</span>, <span class="st">""</span>, <span class="st">`</span><span class="at">percent_poverty</span><span class="st">`</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">economic_need_index</span><span class="st">`</span> <span class="ot">=</span> </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">"%"</span>, <span class="st">""</span>, <span class="st">`</span><span class="at">economic_need_index</span><span class="st">`</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">poverty</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="st">`</span><span class="at">poverty</span><span class="st">`</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">year</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="st">`</span><span class="at">year</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `percent_poverty = as.numeric(gsub("%", "", percent_poverty))`.
+Caused by warning:
+! NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `economic_need_index = as.numeric(gsub("%", "",
+  economic_need_index))`.
+Caused by warning:
+! NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `poverty = as.numeric(poverty)`.
+Caused by warning:
+! NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>schools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16,379 × 45
+   dbn    school_name       year total_enrollment grade_pk_(half_day_&amp;…¹ grade_k
+   &lt;chr&gt;  &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;                  &lt;dbl&gt;   &lt;dbl&gt;
+ 1 01M015 P.S. 015 Robert…  2013              190                     26      39
+ 2 01M015 P.S. 015 Robert…  2014              183                     18      27
+ 3 01M015 P.S. 015 Robert…  2015              176                     14      32
+ 4 01M015 P.S. 015 Robert…  2016              178                     17      28
+ 5 01M015 P.S. 015 Robert…  2017              190                     17      28
+ 6 01M015 P.S. 015 Robert…  2018              174                     13      20
+ 7 01M015 P.S. 015 Robert…  2019              190                     14      29
+ 8 01M015 P.S. 015 Robert…  2020              193                     17      29
+ 9 01M015 P.S. 015 Robert…  2021              179                     15      30
+10 01M019 P.S. 019 Asher …  2013              285                     36      39
+# ℹ 16,369 more rows
+# ℹ abbreviated name: ¹​`grade_pk_(half_day_&amp;_full_day)`
+# ℹ 39 more variables: grade_1 &lt;dbl&gt;, grade_2 &lt;dbl&gt;, grade_3 &lt;dbl&gt;,
+#   grade_4 &lt;dbl&gt;, grade_5 &lt;dbl&gt;, grade_6 &lt;dbl&gt;, grade_7 &lt;dbl&gt;, grade_8 &lt;dbl&gt;,
+#   grade_9 &lt;dbl&gt;, grade_10 &lt;dbl&gt;, grade_11 &lt;dbl&gt;, grade_12 &lt;dbl&gt;,
+#   female &lt;dbl&gt;, percent_female &lt;dbl&gt;, male &lt;dbl&gt;, percent_male &lt;dbl&gt;,
+#   asian &lt;dbl&gt;, percent_asian &lt;dbl&gt;, black &lt;dbl&gt;, percent_black &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># writing the final dataset into a csv file </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(schools, "schools.csv", row.names=FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-description" class="level2">
+<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse of the final dataset </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(schools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 16,379
+Columns: 45
+$ dbn                                              &lt;chr&gt; "01M015", "01M015", "…
+$ school_name                                      &lt;chr&gt; "P.S. 015 Roberto Cle…
+$ year                                             &lt;dbl&gt; 2013, 2014, 2015, 201…
+$ total_enrollment                                 &lt;dbl&gt; 190, 183, 176, 178, 1…
+$ `grade_pk_(half_day_&amp;_full_day)`                 &lt;dbl&gt; 26, 18, 14, 17, 17, 1…
+$ grade_k                                          &lt;dbl&gt; 39, 27, 32, 28, 28, 2…
+$ grade_1                                          &lt;dbl&gt; 39, 47, 33, 33, 32, 3…
+$ grade_2                                          &lt;dbl&gt; 21, 31, 39, 27, 33, 3…
+$ grade_3                                          &lt;dbl&gt; 16, 19, 23, 31, 23, 3…
+$ grade_4                                          &lt;dbl&gt; 26, 17, 17, 24, 31, 2…
+$ grade_5                                          &lt;dbl&gt; 23, 24, 18, 18, 26, 2…
+$ grade_6                                          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, …
+$ grade_7                                          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, …
+$ grade_8                                          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, …
+$ grade_9                                          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, …
+$ grade_10                                         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, …
+$ grade_11                                         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, …
+$ grade_12                                         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, …
+$ female                                           &lt;dbl&gt; 93, 84, 83, 83, 99, 8…
+$ percent_female                                   &lt;dbl&gt; 48.900, 45.900, 47.20…
+$ male                                             &lt;dbl&gt; 97, 99, 93, 95, 91, 8…
+$ percent_male                                     &lt;dbl&gt; 51.100, 54.100, 52.80…
+$ asian                                            &lt;dbl&gt; 9, 8, 9, 14, 20, 24, …
+$ percent_asian                                    &lt;dbl&gt; 4.700, 4.400, 5.100, …
+$ black                                            &lt;dbl&gt; 72, 65, 57, 51, 52, 4…
+$ percent_black                                    &lt;dbl&gt; 37.900, 35.500, 32.40…
+$ hispanic                                         &lt;dbl&gt; 104, 107, 105, 105, 1…
+$ percent_hispanic                                 &lt;dbl&gt; 54.700, 58.500, 59.70…
+$ multiple_race_categories_not_represented         &lt;dbl&gt; 2, 1, 3, 4, NA, NA, N…
+$ percent_multiple_race_categories_not_represented &lt;dbl&gt; 1.1, 0.5, 1.7, 2.2, N…
+$ white                                            &lt;dbl&gt; 3, 2, 2, 4, 6, 6, 9, …
+$ percent_white                                    &lt;dbl&gt; 1.600, 1.100, 1.100, …
+$ `multi-racial`                                   &lt;dbl&gt; NA, NA, NA, NA, 1, 0,…
+$ `percent_multi-racial`                           &lt;dbl&gt; NA, NA, NA, NA, 0.005…
+$ native_american                                  &lt;dbl&gt; NA, NA, NA, NA, 1, 1,…
+$ percent_native_american                          &lt;dbl&gt; NA, NA, NA, NA, 0.005…
+$ `missing_race/ethnicity_data`                    &lt;dbl&gt; NA, NA, NA, NA, 0, 0,…
+$ `percent_missing_race/ethnicity_data`            &lt;dbl&gt; NA, NA, NA, NA, 0.000…
+$ students_with_disabilities                       &lt;dbl&gt; 65, 64, 60, 51, 49, 3…
+$ percent_students_with_disabilities               &lt;dbl&gt; 34.200, 35.000, 34.10…
+$ english_language_learners                        &lt;dbl&gt; 19, 17, 16, 12, 8, 8,…
+$ percent_english_language_learners                &lt;dbl&gt; 10.000, 9.300, 9.100,…
+$ poverty                                          &lt;dbl&gt; 171, 169, 149, 152, 1…
+$ percent_poverty                                  &lt;dbl&gt; 90.0, 92.3, 84.7, 85.…
+$ economic_need_index                              &lt;dbl&gt; NA, 93.5, 89.6, 89.2,…</code></pre>
+</div>
+</div>
+<section id="data-dictionary" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary">Data Dictionary</h3>
+<p>The schools dataset contains 46 attributes (columns) and 16,379 observations (rows). The dataset is arranged by DBN of schools in NYC, with the same DBN and school name but increasing years in consecutive rows. In other words, the grain of the dataset is in one row/record per school per year.</p>
+<p>Descriptive information for each school includes: school_name and dbn.</p>
+<ul>
+<li><p>dbn: DBN (District Borough Number) is the combination of the District Number, the letter code for the borough, and the number of the school.</p></li>
+<li><p>school_name: full name of schools.</p></li>
+<li><p>year: year (containing years from 2013 to 2021).</p></li>
+<li><p>total_enrollment: total number of students enrolled in a particular school in a year.</p></li>
+<li><p>grade_pk_(half_day_&amp;_full_day): number of students enrolled in pre-kindergarten in a particular school in a year.</p></li>
+<li><p>grade_k: number of students enrolled in kindergarten in a particular school in a year.</p></li>
+<li><p>grade_1: number of students enrolled in grade 1 in a particular school in a year.</p></li>
+<li><p>grade_2: number of students enrolled in grade 2 in a particular school in a year.</p></li>
+<li><p>The same trend continues for columns grade_3, grade_4 grade_5, grade_6, grade_7, grade_8, grade_9, grade_10, grade_11, and grade_12.</p></li>
+<li><p>female: the number of female students enrolled in a particular school in a year.</p></li>
+<li><p>percent_female: the percentage of female students enrolled in a particular school in a year.</p></li>
+<li><p>male: the number of male students enrolled in a particular school in a year.</p></li>
+<li><p>percent_male: the percentage of male students enrolled in a particular school in a year.</p></li>
+<li><p>asian: the number of asian students enrolled in a particular school in a year.</p></li>
+<li><p>percent_asian: the percentage of asian students enrolled in a particular school in a year.</p></li>
+<li><p>black: the number of black students enrolled in a particular school in a year.</p></li>
+<li><p>percent_black: the percentage of black students enrolled in a particular school in a year.</p></li>
+<li><p>the same trend goes for columns, hispanic, percent_hispanic, multiple_race_categories_not_represented, percent_multiple_race_categories_not_represented, white, percent_white, multi-racial, percent_multi-racial, native_american, percent_native_american, missing_race/ethnicity_data, percent_missing_race/ethnicity_data</p></li>
+<li><p>students_with_disabilities: the number of students with disabilities enrolled in a particular school in a year.</p></li>
+<li><p>percent_students_with_disabilities: the percentage of students with disabilities enrolled in a particular school in a year.</p></li>
+<li><p>english_language_learners: the number of students whose first language is not english enrolled in a particular school in a year.</p></li>
+<li><p>percent_english_language_learners: the percentage of students whose first language is not english enrolled in a particular school in a year.</p></li>
+<li><p>poverty: the number of students in enrolled in a particular school in a year.</p></li>
+<li><p>percent_poverty: the percentage of students in enrolled in a particular school in a year.</p></li>
+<li><p>economic_need_index: Economic need index by school. The economic need index is a number ranging from 0-1 (it can also be represented as a percentage).</p></li>
+</ul>
+<p>The student’s Economic Need Value is 1.0 if: - The student is eligible for public assistance from the NYC Human Resources Administration (HRA); - The student lived in temporary housing in the past four years; or - The student is in high school, has a home language other than English, and entered the NYC DOE for the first time within the last four years.</p>
+<p>If a school is more than 10 percentage points above the citywide average, it is skewed toward lower incomes; if a school is more than 10 percentage points below the citywide average, it is skewed toward higher incomes.</p>
+<p>(Economic Need Index)[https://data.cccnewyork.org/data/bar/1371/student-economic-need-index#1371/a/1/1622/127]</p>
+</section>
+</section>
+</section>
+<section id="approach-and-justifications" class="level1">
+<h1>Approach and Justifications</h1>
+<p>We decided to first make a few visualizations on the trends in school enrollment. Then we used three machine learning models to predict what future school enrollment would look like if the covid continued.</p>
+</section>
+<section id="visualizations" class="level1">
+<h1>Visualizations</h1>
+<section id="how-did-covid-19-affect-school-total-enrollment" class="level2">
+<h2 class="anchored" data-anchor-id="how-did-covid-19-affect-school-total-enrollment">How did covid-19 affect school total enrollment?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># processing data </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, <span class="fu">starts_with</span>(<span class="st">"grade_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>() <span class="sc">|&gt;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"grade_"</span>), </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"grade"</span>, </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"enrollment"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(enrollment <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grade =</span> <span class="fu">str_remove</span>(grade, <span class="st">"grade_"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grade =</span> <span class="fu">str_remove</span>(grade, <span class="st">"_</span><span class="sc">\\</span><span class="st">(half_day_&amp;_full_day</span><span class="sc">\\</span><span class="st">)"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, grade) <span class="sc">|&gt;</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_enrollment =</span> <span class="fu">sum</span>(enrollment)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'year'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>grade_order <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"pk"</span>, <span class="st">"k"</span>, <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df_long <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grade =</span> <span class="fu">factor</span>(grade, <span class="at">levels =</span> grade_order)) <span class="sc">|&gt;</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year, grade) </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>df_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 126 × 3
+# Groups:   year [9]
+    year grade total_enrollment
+   &lt;dbl&gt; &lt;fct&gt;            &lt;dbl&gt;
+ 1  2013 pk               23166
+ 2  2013 k                84945
+ 3  2013 1                89176
+ 4  2013 2                83918
+ 5  2013 3                80308
+ 6  2013 4                76630
+ 7  2013 5                75336
+ 8  2013 6                74009
+ 9  2013 7                72435
+10  2013 8                73288
+# ℹ 116 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 126
+Columns: 3
+Groups: year [9]
+$ year             &lt;dbl&gt; 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013,…
+$ grade            &lt;fct&gt; pk, k, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, pk, k, …
+$ total_enrollment &lt;dbl&gt; 23166, 84945, 89176, 83918, 80308, 76630, 75336, 7400…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualization of school total enrollment throughout the years </span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.height =</span> <span class="dv">8</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>df_long <span class="sc">|&gt;</span> </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(year), <span class="at">y =</span> total_enrollment, </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">group =</span> grade, <span class="at">color =</span> grade)) <span class="sc">+</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Enrollment Change in NYC schools Over the Years"</span>,</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"by Grade Level"</span>, </span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Students"</span>) <span class="sc">+</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> grade, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span>  </span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>As we cannot see significant trends in changes in students enrollment throughout the years when separated by grade level, we decided to visualize changes in students enrollment throughout the years with all grade levels combined.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># total enrollment by year </span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>total_enrollment_by_year <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">COVID_period =</span> <span class="fu">if_else</span>(year <span class="sc">&lt;</span> <span class="dv">2020</span>, <span class="st">"Pre-COVID"</span>, <span class="st">"During-COVID"</span>),</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, COVID_period) <span class="sc">|&gt;</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_enrollment =</span> <span class="fu">sum</span>(total_enrollment, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'year'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>total_enrollment_by_year</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+# Groups:   year [9]
+  year  COVID_period total_enrollment
+  &lt;fct&gt; &lt;chr&gt;                   &lt;dbl&gt;
+1 2013  Pre-COVID             1046041
+2 2014  Pre-COVID             1063904
+3 2015  Pre-COVID             1077611
+4 2016  Pre-COVID             1089977
+5 2017  Pre-COVID             1080602
+6 2018  Pre-COVID             1079253
+7 2019  Pre-COVID             1080048
+8 2020  During-COVID          1049711
+9 2021  During-COVID          1003629</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualizing total enrollment by year</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(total_enrollment_by_year, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> total_enrollment, </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">group =</span> COVID_period, </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">color =</span> COVID_period)) <span class="sc">+</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Change in Total Enrollment in NYC schools Over the Years"</span>,</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Students"</span>) <span class="sc">+</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="how-did-covid-19-affect-school-mean-enrollment" class="level2">
+<h2 class="anchored" data-anchor-id="how-did-covid-19-affect-school-mean-enrollment">How did Covid-19 affect school mean enrollment?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess the Data</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a COVID period variable and summarize the data</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>schools_summary <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">COVID_period =</span> <span class="fu">if_else</span>(year <span class="sc">&lt;</span> <span class="dv">2020</span>, <span class="st">"Pre-COVID"</span>, <span class="st">"During-COVID"</span>),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year)) <span class="sc">|&gt;</span> <span class="co"># Convert year to a factor</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, COVID_period) <span class="sc">|&gt;</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_enrollment =</span> <span class="fu">mean</span>(total_enrollment, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'year'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Plot</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(schools_summary, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> mean_enrollment, </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">color =</span> COVID_period, </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">group =</span> COVID_period)) <span class="sc">+</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average School Enrollment Over Years"</span>, </span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, </span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Average Enrollment"</span>) <span class="sc">+</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adjust x-axis labels for readability</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The graphs above shows a steep drop from 2019 to 2020 and from 2020 to 2021, corresponding to the covid-19 years.The graphs showed that both total enrollment and mean enrollment of students were decreased during the covid-19 years.</p>
+</section>
+<section id="how-did-covid-19-effect-the-poverty-and-economic-needs-levels-of-students" class="level2">
+<h2 class="anchored" data-anchor-id="how-did-covid-19-effect-the-poverty-and-economic-needs-levels-of-students">How did covid-19 effect the poverty and economic needs levels of students?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data processing </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>mean_percent_poverty <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span>  </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">COVID_period =</span> <span class="fu">if_else</span>(year <span class="sc">&lt;</span> <span class="dv">2020</span>, <span class="st">"Pre-COVID"</span>, <span class="st">"During-COVID"</span>),</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, COVID_period) <span class="sc">|&gt;</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculating the mean percent poverty by year </span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_percent_poverty =</span> <span class="fu">mean</span>(percent_poverty, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'year'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mean_economic_need <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span>  </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">COVID_period =</span> <span class="fu">if_else</span>(year <span class="sc">&lt;</span> <span class="dv">2020</span>, <span class="st">"Pre-COVID"</span>, <span class="st">"During-COVID"</span>),</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, COVID_period) <span class="sc">|&gt;</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculating the mean economic need by year </span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_economic_need =</span> </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mean</span>(economic_need_index, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># deleting year 2013 as there are no ecnomic need index data for this year</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">!=</span> <span class="st">"2013"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'year'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mean_percent_poverty</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+# Groups:   year [9]
+  year  COVID_period mean_percent_poverty
+  &lt;fct&gt; &lt;chr&gt;                       &lt;dbl&gt;
+1 2013  Pre-COVID                    76.4
+2 2014  Pre-COVID                    75.0
+3 2015  Pre-COVID                    73.9
+4 2016  Pre-COVID                    73.6
+5 2017  Pre-COVID                    75.7
+6 2018  Pre-COVID                    75.0
+7 2019  Pre-COVID                    75.4
+8 2020  During-COVID                 75.6
+9 2021  During-COVID                 75.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mean_economic_need</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+# Groups:   year [8]
+  year  COVID_period mean_economic_need
+  &lt;fct&gt; &lt;chr&gt;                     &lt;dbl&gt;
+1 2014  Pre-COVID                 0.662
+2 2015  Pre-COVID                 0.652
+3 2016  Pre-COVID                 0.644
+4 2017  Pre-COVID                 0.731
+5 2018  Pre-COVID                 0.732
+6 2019  Pre-COVID                 0.745
+7 2020  During-COVID              0.744
+8 2021  During-COVID              0.738</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualizing the change in mean percentage of students in poverty by years</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mean_percent_poverty, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> mean_percent_poverty, </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">group =</span> COVID_period, </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">color =</span> COVID_period)) <span class="sc">+</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Change in Mean Percentage of NYC Students in Poverty Over the Years"</span>,</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Students"</span>) <span class="sc">+</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualizing changes in the average economic needs value of students by years</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mean_economic_need, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> mean_economic_need, </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">group =</span> COVID_period, </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">color =</span> COVID_period)) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Change in the Average Economic Needs of Students by Years"</span>,</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Students"</span>) <span class="sc">+</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="did-covid-19-disproportionately-affect-school-enrollment-of-minorities-students-student-of-color" class="level2">
+<h2 class="anchored" data-anchor-id="did-covid-19-disproportionately-affect-school-enrollment-of-minorities-students-student-of-color">Did Covid-19 disproportionately affect school enrollment of minorities students/ student of color?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>covid_years <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2021</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>relevant_columns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"year"</span>, </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"school_name"</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"total_enrollment"</span>, </span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"percent_white"</span>, </span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"percent_black"</span>, </span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"percent_hispanic"</span>, </span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"percent_asian"</span>, </span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"percent_native_american"</span>)</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>filtered_schools <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span></span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(relevant_columns))</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>correct_percentages <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">1</span>, x <span class="sc">/</span> <span class="dv">100</span>, x)</span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>corrected_schools <span class="ot">&lt;-</span> filtered_schools <span class="sc">|&gt;</span></span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"percent"</span>), correct_percentages))</span>
+<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a>avg_enrollment_pre_covid <span class="ot">&lt;-</span> corrected_schools <span class="sc">|&gt;</span> </span>
+<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">&lt;</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span></span>
+<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"percent"</span>), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `summarise()`.
+ℹ In argument: `across(starts_with("percent"), mean, na.rm = TRUE)`.
+Caused by warning:
+! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+Supply arguments directly to `.fns` through an anonymous function instead.
+
+  # Previously
+  across(a:b, mean, na.rm = TRUE)
+
+  # Now
+  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>avg_enrollment_during_covid <span class="ot">&lt;-</span> corrected_schools <span class="sc">|&gt;</span> </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"percent"</span>), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>percentage_change <span class="ot">&lt;-</span> (avg_enrollment_during_covid <span class="sc">-</span> avg_enrollment_pre_covid) <span class="sc">/</span> </span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  avg_enrollment_pre_covid <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>percentage_change</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  percent_white percent_black percent_hispanic percent_asian
+1     -39.42883     -11.29854         3.483335     -32.73358
+  percent_native_american
+1                4.151661</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>percentage_change_long <span class="ot">&lt;-</span> percentage_change <span class="sc">|&gt;</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"change"</span>)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(percentage_change_long, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> change, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Percentage Change in School Enrollment by Race (Pre-COVID vs. During COVID)"</span>,</span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Racial Group"</span>,</span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percentage Change (%)"</span>) <span class="sc">+</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, change)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="at">percent_white =</span> <span class="st">"White"</span>, </span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">percent_black =</span> <span class="st">"Black"</span>, </span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">percent_hispanic =</span> <span class="st">"Hispanic"</span>, </span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">percent_asian =</span> <span class="st">"Asian"</span>, </span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a>                              <span class="at">percent_native_american =</span> <span class="st">"Native American"</span>)) <span class="sc">+</span></span>
+<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span></span>
+<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="did-covid-19-disproportionately-affect-school-enrollment-of-students-with-disabilities" class="level2">
+<h2 class="anchored" data-anchor-id="did-covid-19-disproportionately-affect-school-enrollment-of-students-with-disabilities">Did Covid-19 disproportionately affect school enrollment of students with disabilities?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>relevant_columns_disabilities <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"total_enrollment"</span>, <span class="st">"students_with_disabilities"</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and correct data if needed</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>filtered_schools_disabilities <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(relevant_columns_disabilities)) <span class="sc">|&gt;</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent_students_with_disabilities =</span> students_with_disabilities <span class="sc">/</span> total_enrollment)</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average percentage of students with disabilities pre-COVID</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>avg_pre_covid_disabilities <span class="ot">&lt;-</span> filtered_schools_disabilities <span class="sc">|&gt;</span> </span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_percent_disabilities =</span> <span class="fu">mean</span>(percent_students_with_disabilities, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average percentage of students with disabilities during COVID</span></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>avg_during_covid_disabilities <span class="ot">&lt;-</span> filtered_schools_disabilities <span class="sc">|&gt;</span> </span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span></span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_percent_disabilities =</span> <span class="fu">mean</span>(percent_students_with_disabilities, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentage change</span></span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a>percentage_change_disabilities <span class="ot">&lt;-</span> (avg_during_covid_disabilities <span class="sc">-</span> avg_pre_covid_disabilities) <span class="sc">/</span> avg_pre_covid_disabilities <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Print percentage change</span></span>
+<span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a>percentage_change_disabilities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  mean_percent_disabilities
+1                  4.899926</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data for plotting</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>data_to_plot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Period =</span> <span class="fu">c</span>(<span class="st">"Pre-COVID"</span>, <span class="st">"During COVID"</span>),</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Percentage =</span> <span class="fu">c</span>(avg_pre_covid_disabilities<span class="sc">$</span>mean_percent_disabilities, </span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>                                          avg_during_covid_disabilities<span class="sc">$</span>mean_percent_disabilities))</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Using reorder() to explicitly set the order of the bars</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>data_to_plot<span class="sc">$</span>Period <span class="ot">&lt;-</span> <span class="fu">factor</span>(data_to_plot<span class="sc">$</span>Period, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Pre-COVID"</span>, <span class="st">"During COVID"</span>))</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_to_plot, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Period, Percentage), <span class="at">y =</span> Percentage, <span class="at">fill =</span> Period)) <span class="sc">+</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Percentage of Students with Disabilities (Pre-COVID vs. During COVID)"</span>,</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Period"</span>,</span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percentage of Students with Disabilities"</span>) <span class="sc">+</span></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="did-covid-19-disproportionately-affect-school-enrollment-of-students-who-have-challenges-in-leaning-with-the-english-language" class="level2">
+<h2 class="anchored" data-anchor-id="did-covid-19-disproportionately-affect-school-enrollment-of-students-who-have-challenges-in-leaning-with-the-english-language">Did Covid-19 disproportionately affect school enrollment of students who have challenges in leaning with the English language?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess the Data</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Categorize the data into pre-COVID and during-COVID periods</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">COVID_period =</span> <span class="fu">if_else</span>(year <span class="sc">&lt;</span> <span class="dv">2020</span>, <span class="st">"Pre-COVID"</span>, <span class="st">"During-COVID"</span>),</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">as.factor</span>(year))  <span class="co"># Treat year as categorical</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the data for plotting</span></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>summary_data <span class="ot">&lt;-</span> schools <span class="sc">|&gt;</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, COVID_period) <span class="sc">|&gt;</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_english_learners =</span> <span class="fu">mean</span>(english_language_learners, </span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'year'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Bar Plot</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_data, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> mean_english_learners, </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">fill =</span> COVID_period)) <span class="sc">+</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Number of English Language Learners Over Years"</span>, </span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, </span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Average Number of English Language Learners"</span>) <span class="sc">+</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="models" class="level1">
+<h1>Models</h1>
+<section id="design-process" class="level2">
+<h2 class="anchored" data-anchor-id="design-process">Design process</h2>
+<ol type="1">
+<li>Decision Tree Model</li>
+</ol>
+<p>RMSE (Root Mean Square Error): 118.0916</p>
+<p>Analysis: This RMSE value indicates that the average error in the predictions made by the decision tree model is about 118 students. The decision tree model, being relatively simple, might not have captured the complex interactions and nuances in the data. This model is useful for its interpretability but less so for high accuracy in predictions.</p>
+<ol start="2" type="1">
+<li>XGBoost Model</li>
+</ol>
+<p>RMSE: 15.87645</p>
+<p>Analysis: The XGBoost model significantly outperformed the decision tree model with a much lower RMSE. This improvement suggests that the XGBoost model was able to capture more complex relationships in the data. An average prediction error of approximately 16 students is relatively small, indicating a high level of accuracy. This model is suitable for scenarios where prediction accuracy is paramount.</p>
+<ol start="3" type="1">
+<li>Random Forest Model RMSE: 56.0548</li>
+</ol>
+<p>Analysis: The random forest model, another ensemble learning method, also performed better than the decision tree but not as well as XGBoost. The RMSE of around 56 students suggests a moderate level of prediction error. This model strikes a balance between accuracy and interpretability and can be useful when one needs a more robust model than a decision tree without getting into the complexity of XGBoost.</p>
+<p>Overall Implications: Model Selection for Policy and Planning: The choice of model can significantly impact the accuracy of predictions for school enrollment. XGBoost, with its high accuracy, is particularly useful for detailed and precise planning and allocation of resources. Interpretability vs.&nbsp;Accuracy Trade-off: There’s a clear trade-off between model simplicity (and thus interpretability) and prediction accuracy. Decision trees are easy to understand but less accurate, while XGBoost offers high accuracy but is more complex. Predictive Power and Application: The models, especially XGBoost, can be valuable tools for forecasting school enrollments, which is crucial for educational planning, resource allocation, and policy-making in New York City.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"schools.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 16379 Columns: 45
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (2): dbn, school_name
+dbl (43): year, total_enrollment, grade_pk_(half_day_&amp;_full_day), grade_k, g...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Multivariate Imputation using pmm method</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'mice'
+
+The following object is masked from 'package:stats':
+
+    filter
+
+The following objects are masked from 'package:base':
+
+    cbind, rbind</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">data.frame</span>(data)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">=</span> <span class="fu">mice</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ iter imp variable
+  1   1  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  1   2  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  1   3  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  1   4  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  1   5  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  2   1  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  2   2  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  2   3  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  2   4  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  2   5  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  3   1  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  3   2  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  3   3  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  3   4  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  3   5  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  4   1  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  4   2  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  4   3  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  4   4  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  4   5  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  5   1  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  5   2  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  5   3  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  5   4  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index
+  5   5  multiple_race_categories_not_represented  percent_multiple_race_categories_not_represented  multi.racial  percent_multi.racial  native_american  percent_native_american  missing_race.ethnicity_data  percent_missing_race.ethnicity_data  poverty  percent_poverty  economic_need_index</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Number of logged events: 252</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>data3 <span class="ot">=</span> <span class="fu">complete</span>(data2)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>data3<span class="sc">$</span>covid19 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data3<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">2019</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load  libraries</span></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lattice
+
+Attaching package: 'caret'
+
+The following object is masked from 'package:purrr':
+
+    lift</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>randomForest 4.7-1.1
+Type rfNews() to see new features/changes/bug fixes.
+
+Attaching package: 'randomForest'
+
+The following object is masked from 'package:dplyr':
+
+    combine
+
+The following object is masked from 'package:ggplot2':
+
+    margin</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xgboost)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'xgboost'
+
+The following object is masked from 'package:dplyr':
+
+    slice</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>data3<span class="sc">$</span>asian <span class="ot">=</span> data3<span class="sc">$</span>black <span class="ot">=</span> data3<span class="sc">$</span>hispanic <span class="ot">=</span> data3<span class="sc">$</span>multi.racial <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>data3<span class="sc">$</span>percent_asian <span class="ot">=</span> </span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  data3<span class="sc">$</span>percent_black <span class="ot">=</span> </span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  data3<span class="sc">$</span>percent_hispanic <span class="ot">=</span> </span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  data3<span class="sc">$</span>percent_multi.racial <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>trainIndex <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(data3<span class="sc">$</span>total_enrollment,</span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">p =</span> <span class="fl">0.8</span>, </span>
+<span id="cb81-14"><a href="#cb81-14" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb81-15"><a href="#cb81-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-16"><a href="#cb81-16" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> data3[trainIndex, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)]</span>
+<span id="cb81-17"><a href="#cb81-17" aria-hidden="true" tabindex="-1"></a>testData <span class="ot">&lt;-</span> data3[<span class="sc">-</span>trainIndex, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)]</span>
+<span id="cb81-18"><a href="#cb81-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-19"><a href="#cb81-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-20"><a href="#cb81-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Baseline Model - Decision tree </span></span>
+<span id="cb81-21"><a href="#cb81-21" aria-hidden="true" tabindex="-1"></a>baselineModel <span class="ot">&lt;-</span> <span class="fu">rpart</span>(total_enrollment<span class="sc">~</span> ., <span class="at">data =</span> trainData)</span>
+<span id="cb81-22"><a href="#cb81-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-23"><a href="#cb81-23" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(baselineModel , testData)</span>
+<span id="cb81-24"><a href="#cb81-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-25"><a href="#cb81-25" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE for Decision tree on test data</span></span>
+<span id="cb81-26"><a href="#cb81-26" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predictions <span class="sc">-</span> testData[, <span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb81-27"><a href="#cb81-27" aria-hidden="true" tabindex="-1"></a>rmse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 118.0916</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co">#XGBOOST Model</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the input matrix and response variable</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>train_matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(trainData[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>train_response <span class="ot">&lt;-</span> trainData[,<span class="dv">1</span>]</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the xgboost model</span></span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="ot">&lt;-</span> <span class="fu">xgboost</span>(<span class="at">data =</span> train_matrix, </span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> train_response, </span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">nrounds =</span> <span class="dv">500</span>,</span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] train-rmse:531.274194 
+[2] train-rmse:375.139597 
+[3] train-rmse:265.360448 
+[4] train-rmse:187.982965 
+[5] train-rmse:133.587226 
+[6] train-rmse:95.271816 
+[7] train-rmse:68.365778 
+[8] train-rmse:49.573987 
+[9] train-rmse:36.558448 
+[10]    train-rmse:27.428338 
+[11]    train-rmse:21.251946 
+[12]    train-rmse:17.126835 
+[13]    train-rmse:14.352959 
+[14]    train-rmse:12.570820 
+[15]    train-rmse:11.398399 
+[16]    train-rmse:10.596871 
+[17]    train-rmse:10.065511 
+[18]    train-rmse:9.724509 
+[19]    train-rmse:9.354275 
+[20]    train-rmse:9.185823 
+[21]    train-rmse:9.028916 
+[22]    train-rmse:8.863112 
+[23]    train-rmse:8.739887 
+[24]    train-rmse:8.638518 
+[25]    train-rmse:8.555924 
+[26]    train-rmse:8.481767 
+[27]    train-rmse:8.425380 
+[28]    train-rmse:8.330265 
+[29]    train-rmse:8.270043 
+[30]    train-rmse:8.161686 
+[31]    train-rmse:8.096652 
+[32]    train-rmse:7.961212 
+[33]    train-rmse:7.878894 
+[34]    train-rmse:7.798650 
+[35]    train-rmse:7.674329 
+[36]    train-rmse:7.536368 
+[37]    train-rmse:7.474689 
+[38]    train-rmse:7.391307 
+[39]    train-rmse:7.264432 
+[40]    train-rmse:7.231625 
+[41]    train-rmse:7.188964 
+[42]    train-rmse:7.035509 
+[43]    train-rmse:7.006861 
+[44]    train-rmse:6.938023 
+[45]    train-rmse:6.828655 
+[46]    train-rmse:6.715011 
+[47]    train-rmse:6.678123 
+[48]    train-rmse:6.612524 
+[49]    train-rmse:6.567693 
+[50]    train-rmse:6.537386 
+[51]    train-rmse:6.485552 
+[52]    train-rmse:6.349023 
+[53]    train-rmse:6.229222 
+[54]    train-rmse:6.124980 
+[55]    train-rmse:6.080874 
+[56]    train-rmse:5.935487 
+[57]    train-rmse:5.846531 
+[58]    train-rmse:5.828153 
+[59]    train-rmse:5.800649 
+[60]    train-rmse:5.705045 
+[61]    train-rmse:5.662551 
+[62]    train-rmse:5.628750 
+[63]    train-rmse:5.607283 
+[64]    train-rmse:5.511706 
+[65]    train-rmse:5.502907 
+[66]    train-rmse:5.475219 
+[67]    train-rmse:5.345846 
+[68]    train-rmse:5.265206 
+[69]    train-rmse:5.239723 
+[70]    train-rmse:5.114248 
+[71]    train-rmse:5.093016 
+[72]    train-rmse:5.045592 
+[73]    train-rmse:5.041774 
+[74]    train-rmse:5.005272 
+[75]    train-rmse:4.956342 
+[76]    train-rmse:4.918976 
+[77]    train-rmse:4.905775 
+[78]    train-rmse:4.881160 
+[79]    train-rmse:4.808052 
+[80]    train-rmse:4.707738 
+[81]    train-rmse:4.666754 
+[82]    train-rmse:4.619373 
+[83]    train-rmse:4.556838 
+[84]    train-rmse:4.526971 
+[85]    train-rmse:4.461319 
+[86]    train-rmse:4.438713 
+[87]    train-rmse:4.429944 
+[88]    train-rmse:4.357170 
+[89]    train-rmse:4.346844 
+[90]    train-rmse:4.309759 
+[91]    train-rmse:4.285899 
+[92]    train-rmse:4.198532 
+[93]    train-rmse:4.182344 
+[94]    train-rmse:4.161204 
+[95]    train-rmse:4.137821 
+[96]    train-rmse:4.093813 
+[97]    train-rmse:4.078976 
+[98]    train-rmse:4.042502 
+[99]    train-rmse:4.025437 
+[100]   train-rmse:3.944627 
+[101]   train-rmse:3.927311 
+[102]   train-rmse:3.902142 
+[103]   train-rmse:3.888730 
+[104]   train-rmse:3.857927 
+[105]   train-rmse:3.824171 
+[106]   train-rmse:3.789523 
+[107]   train-rmse:3.777774 
+[108]   train-rmse:3.763893 
+[109]   train-rmse:3.697273 
+[110]   train-rmse:3.674146 
+[111]   train-rmse:3.618042 
+[112]   train-rmse:3.603079 
+[113]   train-rmse:3.575845 
+[114]   train-rmse:3.566139 
+[115]   train-rmse:3.541828 
+[116]   train-rmse:3.535235 
+[117]   train-rmse:3.503241 
+[118]   train-rmse:3.466512 
+[119]   train-rmse:3.445122 
+[120]   train-rmse:3.404572 
+[121]   train-rmse:3.391634 
+[122]   train-rmse:3.382046 
+[123]   train-rmse:3.364551 
+[124]   train-rmse:3.344250 
+[125]   train-rmse:3.336365 
+[126]   train-rmse:3.333050 
+[127]   train-rmse:3.321210 
+[128]   train-rmse:3.311341 
+[129]   train-rmse:3.285720 
+[130]   train-rmse:3.258106 
+[131]   train-rmse:3.256778 
+[132]   train-rmse:3.238297 
+[133]   train-rmse:3.225326 
+[134]   train-rmse:3.174820 
+[135]   train-rmse:3.156372 
+[136]   train-rmse:3.129723 
+[137]   train-rmse:3.110606 
+[138]   train-rmse:3.071052 
+[139]   train-rmse:3.049772 
+[140]   train-rmse:3.030520 
+[141]   train-rmse:3.012899 
+[142]   train-rmse:3.008547 
+[143]   train-rmse:2.988974 
+[144]   train-rmse:2.978785 
+[145]   train-rmse:2.974546 
+[146]   train-rmse:2.957432 
+[147]   train-rmse:2.937639 
+[148]   train-rmse:2.892384 
+[149]   train-rmse:2.882758 
+[150]   train-rmse:2.869412 
+[151]   train-rmse:2.865340 
+[152]   train-rmse:2.854571 
+[153]   train-rmse:2.842169 
+[154]   train-rmse:2.839884 
+[155]   train-rmse:2.831548 
+[156]   train-rmse:2.824661 
+[157]   train-rmse:2.781193 
+[158]   train-rmse:2.763034 
+[159]   train-rmse:2.753818 
+[160]   train-rmse:2.743232 
+[161]   train-rmse:2.723599 
+[162]   train-rmse:2.688860 
+[163]   train-rmse:2.660252 
+[164]   train-rmse:2.625332 
+[165]   train-rmse:2.602669 
+[166]   train-rmse:2.578777 
+[167]   train-rmse:2.574373 
+[168]   train-rmse:2.562507 
+[169]   train-rmse:2.558320 
+[170]   train-rmse:2.546498 
+[171]   train-rmse:2.537710 
+[172]   train-rmse:2.532478 
+[173]   train-rmse:2.522198 
+[174]   train-rmse:2.515830 
+[175]   train-rmse:2.510495 
+[176]   train-rmse:2.505317 
+[177]   train-rmse:2.482390 
+[178]   train-rmse:2.447759 
+[179]   train-rmse:2.424420 
+[180]   train-rmse:2.402425 
+[181]   train-rmse:2.399662 
+[182]   train-rmse:2.395589 
+[183]   train-rmse:2.388815 
+[184]   train-rmse:2.379248 
+[185]   train-rmse:2.374487 
+[186]   train-rmse:2.363058 
+[187]   train-rmse:2.352245 
+[188]   train-rmse:2.339830 
+[189]   train-rmse:2.327061 
+[190]   train-rmse:2.316832 
+[191]   train-rmse:2.305977 
+[192]   train-rmse:2.290078 
+[193]   train-rmse:2.279767 
+[194]   train-rmse:2.270542 
+[195]   train-rmse:2.264864 
+[196]   train-rmse:2.252093 
+[197]   train-rmse:2.239459 
+[198]   train-rmse:2.224844 
+[199]   train-rmse:2.199455 
+[200]   train-rmse:2.180719 
+[201]   train-rmse:2.162724 
+[202]   train-rmse:2.141925 
+[203]   train-rmse:2.120631 
+[204]   train-rmse:2.095524 
+[205]   train-rmse:2.078232 
+[206]   train-rmse:2.065393 
+[207]   train-rmse:2.056613 
+[208]   train-rmse:2.035756 
+[209]   train-rmse:2.027402 
+[210]   train-rmse:2.024386 
+[211]   train-rmse:1.995434 
+[212]   train-rmse:1.989110 
+[213]   train-rmse:1.975144 
+[214]   train-rmse:1.971722 
+[215]   train-rmse:1.957588 
+[216]   train-rmse:1.945296 
+[217]   train-rmse:1.932984 
+[218]   train-rmse:1.914136 
+[219]   train-rmse:1.904681 
+[220]   train-rmse:1.894506 
+[221]   train-rmse:1.876143 
+[222]   train-rmse:1.865990 
+[223]   train-rmse:1.859359 
+[224]   train-rmse:1.858281 
+[225]   train-rmse:1.849725 
+[226]   train-rmse:1.845929 
+[227]   train-rmse:1.843039 
+[228]   train-rmse:1.824244 
+[229]   train-rmse:1.819242 
+[230]   train-rmse:1.809932 
+[231]   train-rmse:1.795087 
+[232]   train-rmse:1.786425 
+[233]   train-rmse:1.783753 
+[234]   train-rmse:1.775103 
+[235]   train-rmse:1.764101 
+[236]   train-rmse:1.748006 
+[237]   train-rmse:1.746492 
+[238]   train-rmse:1.743867 
+[239]   train-rmse:1.737383 
+[240]   train-rmse:1.730812 
+[241]   train-rmse:1.729015 
+[242]   train-rmse:1.723174 
+[243]   train-rmse:1.710680 
+[244]   train-rmse:1.698610 
+[245]   train-rmse:1.681062 
+[246]   train-rmse:1.662900 
+[247]   train-rmse:1.658853 
+[248]   train-rmse:1.652799 
+[249]   train-rmse:1.649510 
+[250]   train-rmse:1.646663 
+[251]   train-rmse:1.638811 
+[252]   train-rmse:1.635559 
+[253]   train-rmse:1.626554 
+[254]   train-rmse:1.620192 
+[255]   train-rmse:1.610621 
+[256]   train-rmse:1.595264 
+[257]   train-rmse:1.587257 
+[258]   train-rmse:1.575296 
+[259]   train-rmse:1.569276 
+[260]   train-rmse:1.567437 
+[261]   train-rmse:1.566491 
+[262]   train-rmse:1.557753 
+[263]   train-rmse:1.551364 
+[264]   train-rmse:1.543503 
+[265]   train-rmse:1.541728 
+[266]   train-rmse:1.538046 
+[267]   train-rmse:1.532090 
+[268]   train-rmse:1.531326 
+[269]   train-rmse:1.527982 
+[270]   train-rmse:1.526127 
+[271]   train-rmse:1.517457 
+[272]   train-rmse:1.510383 
+[273]   train-rmse:1.503870 
+[274]   train-rmse:1.496844 
+[275]   train-rmse:1.489608 
+[276]   train-rmse:1.475113 
+[277]   train-rmse:1.472988 
+[278]   train-rmse:1.465051 
+[279]   train-rmse:1.463604 
+[280]   train-rmse:1.452007 
+[281]   train-rmse:1.446902 
+[282]   train-rmse:1.438773 
+[283]   train-rmse:1.433833 
+[284]   train-rmse:1.433216 
+[285]   train-rmse:1.424233 
+[286]   train-rmse:1.412071 
+[287]   train-rmse:1.404980 
+[288]   train-rmse:1.401444 
+[289]   train-rmse:1.398723 
+[290]   train-rmse:1.394429 
+[291]   train-rmse:1.393736 
+[292]   train-rmse:1.391378 
+[293]   train-rmse:1.387467 
+[294]   train-rmse:1.385024 
+[295]   train-rmse:1.384589 
+[296]   train-rmse:1.380043 
+[297]   train-rmse:1.372721 
+[298]   train-rmse:1.369704 
+[299]   train-rmse:1.364707 
+[300]   train-rmse:1.355898 
+[301]   train-rmse:1.351614 
+[302]   train-rmse:1.346226 
+[303]   train-rmse:1.339393 
+[304]   train-rmse:1.335040 
+[305]   train-rmse:1.328977 
+[306]   train-rmse:1.323251 
+[307]   train-rmse:1.318202 
+[308]   train-rmse:1.317441 
+[309]   train-rmse:1.312648 
+[310]   train-rmse:1.303083 
+[311]   train-rmse:1.301300 
+[312]   train-rmse:1.289463 
+[313]   train-rmse:1.284016 
+[314]   train-rmse:1.271913 
+[315]   train-rmse:1.270625 
+[316]   train-rmse:1.269534 
+[317]   train-rmse:1.268353 
+[318]   train-rmse:1.264707 
+[319]   train-rmse:1.256608 
+[320]   train-rmse:1.254122 
+[321]   train-rmse:1.247301 
+[322]   train-rmse:1.246935 
+[323]   train-rmse:1.236846 
+[324]   train-rmse:1.228920 
+[325]   train-rmse:1.224958 
+[326]   train-rmse:1.220626 
+[327]   train-rmse:1.216652 
+[328]   train-rmse:1.210905 
+[329]   train-rmse:1.207072 
+[330]   train-rmse:1.203015 
+[331]   train-rmse:1.196503 
+[332]   train-rmse:1.188980 
+[333]   train-rmse:1.181230 
+[334]   train-rmse:1.178256 
+[335]   train-rmse:1.168078 
+[336]   train-rmse:1.160118 
+[337]   train-rmse:1.157978 
+[338]   train-rmse:1.151148 
+[339]   train-rmse:1.149581 
+[340]   train-rmse:1.144200 
+[341]   train-rmse:1.140355 
+[342]   train-rmse:1.136094 
+[343]   train-rmse:1.135419 
+[344]   train-rmse:1.128305 
+[345]   train-rmse:1.120693 
+[346]   train-rmse:1.113635 
+[347]   train-rmse:1.112954 
+[348]   train-rmse:1.109921 
+[349]   train-rmse:1.102403 
+[350]   train-rmse:1.096300 
+[351]   train-rmse:1.090130 
+[352]   train-rmse:1.089185 
+[353]   train-rmse:1.083943 
+[354]   train-rmse:1.082519 
+[355]   train-rmse:1.081095 
+[356]   train-rmse:1.072925 
+[357]   train-rmse:1.070998 
+[358]   train-rmse:1.065041 
+[359]   train-rmse:1.060473 
+[360]   train-rmse:1.057508 
+[361]   train-rmse:1.055301 
+[362]   train-rmse:1.051317 
+[363]   train-rmse:1.050835 
+[364]   train-rmse:1.046827 
+[365]   train-rmse:1.040447 
+[366]   train-rmse:1.035145 
+[367]   train-rmse:1.028154 
+[368]   train-rmse:1.022637 
+[369]   train-rmse:1.018475 
+[370]   train-rmse:1.014575 
+[371]   train-rmse:1.008457 
+[372]   train-rmse:1.003699 
+[373]   train-rmse:1.000230 
+[374]   train-rmse:0.994562 
+[375]   train-rmse:0.991603 
+[376]   train-rmse:0.990039 
+[377]   train-rmse:0.984033 
+[378]   train-rmse:0.982113 
+[379]   train-rmse:0.975406 
+[380]   train-rmse:0.966866 
+[381]   train-rmse:0.961762 
+[382]   train-rmse:0.957212 
+[383]   train-rmse:0.948764 
+[384]   train-rmse:0.944413 
+[385]   train-rmse:0.938719 
+[386]   train-rmse:0.932394 
+[387]   train-rmse:0.932151 
+[388]   train-rmse:0.931055 
+[389]   train-rmse:0.930148 
+[390]   train-rmse:0.918605 
+[391]   train-rmse:0.916195 
+[392]   train-rmse:0.912066 
+[393]   train-rmse:0.908713 
+[394]   train-rmse:0.905368 
+[395]   train-rmse:0.903535 
+[396]   train-rmse:0.899719 
+[397]   train-rmse:0.897297 
+[398]   train-rmse:0.889915 
+[399]   train-rmse:0.887308 
+[400]   train-rmse:0.882470 
+[401]   train-rmse:0.878908 
+[402]   train-rmse:0.874841 
+[403]   train-rmse:0.866674 
+[404]   train-rmse:0.858570 
+[405]   train-rmse:0.853664 
+[406]   train-rmse:0.849051 
+[407]   train-rmse:0.847281 
+[408]   train-rmse:0.843464 
+[409]   train-rmse:0.838267 
+[410]   train-rmse:0.832553 
+[411]   train-rmse:0.830155 
+[412]   train-rmse:0.825334 
+[413]   train-rmse:0.821063 
+[414]   train-rmse:0.813807 
+[415]   train-rmse:0.810044 
+[416]   train-rmse:0.808697 
+[417]   train-rmse:0.803611 
+[418]   train-rmse:0.803340 
+[419]   train-rmse:0.801766 
+[420]   train-rmse:0.799654 
+[421]   train-rmse:0.794850 
+[422]   train-rmse:0.793731 
+[423]   train-rmse:0.790108 
+[424]   train-rmse:0.785190 
+[425]   train-rmse:0.784688 
+[426]   train-rmse:0.780145 
+[427]   train-rmse:0.775773 
+[428]   train-rmse:0.773073 
+[429]   train-rmse:0.771277 
+[430]   train-rmse:0.768119 
+[431]   train-rmse:0.764876 
+[432]   train-rmse:0.761862 
+[433]   train-rmse:0.760481 
+[434]   train-rmse:0.757210 
+[435]   train-rmse:0.756784 
+[436]   train-rmse:0.754507 
+[437]   train-rmse:0.753669 
+[438]   train-rmse:0.751483 
+[439]   train-rmse:0.748056 
+[440]   train-rmse:0.744559 
+[441]   train-rmse:0.742234 
+[442]   train-rmse:0.739463 
+[443]   train-rmse:0.733593 
+[444]   train-rmse:0.730947 
+[445]   train-rmse:0.729700 
+[446]   train-rmse:0.724739 
+[447]   train-rmse:0.721020 
+[448]   train-rmse:0.717363 
+[449]   train-rmse:0.715923 
+[450]   train-rmse:0.715214 
+[451]   train-rmse:0.709574 
+[452]   train-rmse:0.705204 
+[453]   train-rmse:0.700905 
+[454]   train-rmse:0.698819 
+[455]   train-rmse:0.694690 
+[456]   train-rmse:0.693680 
+[457]   train-rmse:0.690009 
+[458]   train-rmse:0.688697 
+[459]   train-rmse:0.685299 
+[460]   train-rmse:0.681500 
+[461]   train-rmse:0.679631 
+[462]   train-rmse:0.675213 
+[463]   train-rmse:0.671230 
+[464]   train-rmse:0.667558 
+[465]   train-rmse:0.661662 
+[466]   train-rmse:0.661314 
+[467]   train-rmse:0.660963 
+[468]   train-rmse:0.656874 
+[469]   train-rmse:0.655238 
+[470]   train-rmse:0.653004 
+[471]   train-rmse:0.651654 
+[472]   train-rmse:0.650350 
+[473]   train-rmse:0.647241 
+[474]   train-rmse:0.645491 
+[475]   train-rmse:0.642721 
+[476]   train-rmse:0.642407 
+[477]   train-rmse:0.640244 
+[478]   train-rmse:0.639229 
+[479]   train-rmse:0.637475 
+[480]   train-rmse:0.633178 
+[481]   train-rmse:0.628967 
+[482]   train-rmse:0.626660 
+[483]   train-rmse:0.624716 
+[484]   train-rmse:0.622799 
+[485]   train-rmse:0.622289 
+[486]   train-rmse:0.622043 
+[487]   train-rmse:0.617987 
+[488]   train-rmse:0.615985 
+[489]   train-rmse:0.612189 
+[490]   train-rmse:0.607567 
+[491]   train-rmse:0.604958 
+[492]   train-rmse:0.601040 
+[493]   train-rmse:0.598475 
+[494]   train-rmse:0.596360 
+[495]   train-rmse:0.594366 
+[496]   train-rmse:0.591269 
+[497]   train-rmse:0.588543 
+[498]   train-rmse:0.586035 
+[499]   train-rmse:0.585284 
+[500]   train-rmse:0.584556 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict  for  XGBOOST  on test data </span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>test_matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(testData[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(xgb_model, <span class="at">newdata =</span> test_matrix)</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE for  XGBOOST  on test data </span></span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predictions <span class="sc">-</span> testData[, <span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>rmse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13.4961</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensemble Model - Random forest</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>ensembleModel <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(total_enrollment<span class="sc">~</span> ., <span class="at">data =</span> trainData, </span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">sampsize =</span> <span class="dv">1000</span>)</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(ensembleModel , testData)</span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE for Decision tree on test data</span></span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((predictions <span class="sc">-</span> testData[, <span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a>rmse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 57.64872</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="limitations" class="level1">
+<h1>Limitations</h1>
+<section id="data-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="data-limitations">Data limitations</h2>
+<ul>
+<li><p>no school types</p></li>
+<li><p>only public schools</p></li>
+<li><p><strong>Scope of Data</strong>: The data set only includes public schools, so the findings may not be representative of private, charter, or other types of schools in NYC.</p></li>
+<li><p><strong>Variable Definitions are not unified</strong></p>
+<p>Inconsistent Definitions: Definitions of key variables, like “economic need” or “English language learners,” may have evolved over time, affecting trend analyses.</p>
+<p>Categorical Limitations: Categories such as race/ethnicity and economic status are often complex and may not be captured fully by the available data.</p></li>
+<li><p><strong>Covid-19 Impact</strong>: The pandemic’s impact started in early 2020, so data from 2017-18 and 2018-19 might not capture the pre-pandemic baseline accurately.</p></li>
+</ul>
+</section>
+<section id="analysis-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-limitations">Analysis Limitations</h2>
+</section>
+</section>
+<section id="additional-information-on-the-dataset" class="level1">
+<h1>Additional Information on the Dataset</h1>
+<section id="why-was-this-dataset-created" class="level2">
+<h2 class="anchored" data-anchor-id="why-was-this-dataset-created">Why was this dataset created?</h2>
+<p>This dataset is created by the city of New York City about a comprehensive overview of student demographics across NYC schools. This data can help stakeholders, including policymakers, educators, and researchers to understand the diverse student population within NYC and make informed decisions related to educational programs, resources allocation, and policy planning.</p>
+</section>
+<section id="who-funded-the-creation-of-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="who-funded-the-creation-of-the-dataset">Who funded the creation of the dataset?</h2>
+<p>The dataset appears to be related to NYC schools, so it was likely funded and maintained by the New York City Department of Education or a related governmental body.</p>
+</section>
+<section id="what-processes-might-have-influenced-what-data-was-observed-and-recorded-and-what-was-not" class="level2">
+<h2 class="anchored" data-anchor-id="what-processes-might-have-influenced-what-data-was-observed-and-recorded-and-what-was-not">What processes might have influenced what data was observed and recorded and what was not?</h2>
+<p>The data within the data set needed to be measurable. It’s likely that this data set came from a larger data set with more comprehensive data related to all things related to education. This data set specifically focuses on student’s ethnicity, disability, and economic status.</p>
+<p>One factor that we noticed is that these are aggregate data without further breakdown of individuals. This is likely due to privacy concerns to mask student identities.</p>
+</section>
+<section id="if-people-are-involved-were-they-aware-of-the-data-collection-and-if-so-what-purpose-did-they-expect-the-data-to-be-used-for" class="level2">
+<h2 class="anchored" data-anchor-id="if-people-are-involved-were-they-aware-of-the-data-collection-and-if-so-what-purpose-did-they-expect-the-data-to-be-used-for">If people are involved, were they aware of the data collection and if so, what purpose did they expect the data to be used for?</h2>
+<p>Given that this data is related to public schools and is likely that parents have signed something that allowed the school to collect their information for official and administrative purposes. Parents, guardians, and school staff were probably aware of the data collection. They might have expected the data to be used for administrative purposes, policy planning, resource allocation, and to assess the needs of the student population.</p>
+<p>Especially in public schools, economic status information could be derived from things like subsidy or food stamps. The race, gender, English level and age are basic information that are collected upon school enrollment.</p>
+</section>
+</section>
+<section id="acknowledgments" class="level1">
+<h1>Acknowledgments</h1>
+<p>We extend our sincere gratitude to NYC Open Data for providing the invaluable datasets that formed the foundation of our data analysis project.</p>
+<p>We would also like to express our appreciation to Dr.&nbsp;Benjamin Soltoff for his teaching, guidance, and mentorship throughout the course.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

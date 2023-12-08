@@ -1,0 +1,285 @@
+---
+title: "Project title"
+subtitle: "Exploration"
+format: html
+editor: visual
+execute:
+  echo: true
+---
+
+```{r}
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+library(snakecase)
+```
+
+# Objective(s)
+
+State the question(s) you are answering or the problem(s) you are solving clearly.
+
+The data contains demographic information for NYC schools between the years 2013 (2013-14) and 2021 (2021-22). Our objective for this project is to explore how Covid-19 affects the NYC schools. We will consider how COVID affected education through attributes such as race, disability, economic status, etc. Covid-19 started affecting schools in the US during March 2019.
+
+## We posed questions such as:
+
+-   How did covid-19 affect school enrollment? Including total enrollment, enrollment by grade level (PK-12).
+
+-   How did covid-19 effect the enrollment of schools with different levels of funding? Are underserved schools affect more than schools with sufficient fundings.
+
+-   Did Covid-19 disproportionately affect school enrollment of minorities student/students of color?
+
+-   Did Covid-19 disproportionately affect school enrollment of students with disabilities?
+
+-   Did Covid-19 disproportionately affect school enrollment of students in poverty?
+
+-   Did Covid-19 disproportionately affect school enrollment of students who have challenges in leaning with the Anglish language?
+
+Note: DBN (District Borough Number) is the combination of the District Number, the letter code for the borough, and the number of the school
+
+# Data import and cleaning
+
+Have an initial draft of your data cleaning appendix. Document every step that takes your raw data file(s) and turns it into the analysis-ready data set that you would submit with your final project. Include text narrative describing your data collection (downloading, scraping, surveys, etc) and any additional data curation/cleaning (merging data frames, filtering, transformations of variables, etc). Include code for data curation/cleaning, but not collection.
+
+```{r}
+# upload data 
+
+nyc_schools_17_to_22 <- read_csv("2017-18__-_2021-22_Demographic_Snapshot_20231020.csv")
+
+nyc_schools_13_to_18 <- read_csv("2013_-_2018_Demographic_Snapshot_School_20231024.csv")
+
+```
+
+## Sources of data
+
+nyc_schools_17_to_22: source: https://data.cityofnewyork.us/Education/2017-18-2021-22-Demographic-Snapshot/c7ru-d68s data provided by New York City Department of Education
+
+nyc_schools_13_to_18: source: https://data.cityofnewyork.us/Education/2013-2018-Demographic-Snapshot-School/s52a-8aq6 data provided by New York City Department of Education
+
+## Initial views of the data
+
+```{r}
+nyc_schools_17_to_22
+```
+
+```{r}
+#glimpse of data 
+
+glimpse(nyc_schools_17_to_22)
+
+#View(nyc_schools_17_to_22)
+```
+
+```{r}
+nyc_schools_13_to_18
+```
+
+```{r}
+glimpse(nyc_schools_13_to_18)
+# View(nyc_schools_13_to_18)
+```
+
+## Data Cleaning
+
+```{r}
+# deleting all rows with the years "2017-18" in nyc_schools_13_to_18
+# information is already contained in nyc_schools_17_to_22
+
+nyc_schools_13_to_18_fix <- nyc_schools_13_to_18 |> 
+  filter(Year != "2017-18") 
+  
+nyc_schools_13_to_18_fix
+```
+
+In nyc_schools_13_to_18, "\# Poverty" and "% Poverty" are both in double type. In nyc_schools_17_to_22, both are in character strings because there are schools with above 95% poverty, which is written as "Above 95%" in both the "\# Poverty" and "% Poverty" and columns.
+
+The chunk below turns the "\# Poverty" and "% Poverty" columns in into character strings in nyc_schools_13_to_18 so the two dataset can be merged
+
+```{r}
+
+nyc_schools_13_to_18_fix <- nyc_schools_13_to_18_fix |> 
+  mutate(`% Poverty` = as.character(`% Poverty`), 
+         `# Poverty` = as.character(`# Poverty`))
+
+```
+
+Creating a joined data set
+
+```{r}
+schools <- 
+  # joining the two data sets.
+  bind_rows(nyc_schools_13_to_18_fix, nyc_schools_17_to_22) |> 
+  # turn values in Year column from YYYY-YY to YYYY. E.g. 2013-24 to 2013 
+  mutate("Year" = substr(Year, 1, 4)) |> 
+  arrange(DBN)
+
+# turning all column names to snakecase
+colnames(schools) <- tolower(gsub(" ", "_", colnames(schools)))
+
+# deleting  all '#' in column names to avoid confusing R
+colnames(schools) <- gsub("#_", "", colnames(schools))
+
+# turning all "%" in column names to "percent" to avoid confusing R
+colnames(schools) <- gsub("%", "percent", colnames(schools))
+
+schools 
+```
+
+```{r}
+# organizing columns so they make sense 
+schools <- schools |> 
+  # deleting grade_3k because most schools don't have information on it. 
+  select(-grade_3k) |> 
+  # putting all the race and ethnicity columns next to each other 
+  select(1:`percent_white`, 
+         `multi-racial`, 
+         `percent_multi-racial`, 
+         `native_american`, 
+         `percent_native_american`, 
+         `missing_race/ethnicity_data`, 
+         `percent_missing_race/ethnicity_data`,           
+         everything())
+
+schools
+```
+
+```{r}
+# cleaning column content structure and type 
+
+schools <- schools |> 
+  # turning all "No Data" to N/A in economic_need_index column 
+  mutate(economic_need_index = ifelse(economic_need_index == "No Data", NA, 
+                                      economic_need_index)) |> 
+  # turning percentage and character values to numeric 
+  mutate(`percent_poverty` = as.numeric(gsub("%", "", `percent_poverty`))) |> 
+  mutate(`economic_need_index` = 
+           as.numeric(gsub("%", "", `economic_need_index`))) |> 
+  mutate(`poverty` = as.numeric(`poverty`)) |> 
+  mutate(`year` = as.numeric(`year`))
+
+schools
+
+```
+
+# Data description
+
+Have an initial draft of your data description section. Your data description should be about your analysis-ready data.
+
+```{r}
+# glimpse of the analysis-ready data set 
+glimpse(schools)
+```
+
+```{r}
+write.csv(schools, "schools.csv", row.names=FALSE)
+```
+
+If using real-world data, describe it. A good model for this is presented in Gebru et al, 2018. Answer any relevant questions from sections 3.1-3.5 of the Gebru et al article, especially the following questions:
+
+## First, some notes:
+
+-   DBN (District Borough Number) is the combination of the District Number, the letter code for the borough, and the number of the school.
+
+-   The Economic Need Index refers to the estimated percentage of students facing economic hardship.
+
+## What are the observations (rows) and the attributes (columns)?
+
+The schools dataset contains 46 attributes (columns) and 16,379 observations (rows). The dataset is arranged by DBN of schools in NYC, with the same DBN and school name but increasing years in consecutive rows. In other words, the grain of the dataset is in one row/record per school per year.
+
+Descriptive information for each school includes: school_name and dbn.
+
+Year goes from 2013 to 2021 for each school.
+
+Demographic attributes for each school includes: - total_enrollment
+
+-   enrollment by grade level (from grade_pk to grade_12)
+
+-   quantity of student sexes (female, male)
+
+-   proportions of student sexes (percent_female, percent_male)
+
+-   quantity of students from different race and ethnicity
+
+-   proportions of students from different race and ethnicity
+
+-   quantity and proportions of students experiencing poverty
+
+## Why was this dataset created?
+
+This dataset is created by the city of New York City about a comprehensive overview of student demographics across NYC schools. This data can help stakeholders, including policymakers, educators, and researchers to understand the diverse student population within NYC and make informed decisions related to educational programs, resources allocation, and policy planning.
+
+## Who funded the creation of the dataset?
+
+The dataset appears to be related to NYC schools, so it was likely funded and maintained by the New York City Department of Education or a related governmental body.
+
+## What processes might have influenced what data was observed and recorded and what was not?
+
+The data within the data set needed to be measurable. It's likely that this data set came from a larger data set with more comprehensive data related to all things related to education. This data set specifically focuses on student's ethnicity, disability, and economic status.
+
+One factor that we noticed is that these are aggregate data without further breakdown of individuals. This is likely due to privacy concerns to mask student identities.
+
+## What preprocessing was done, and how did the data come to be in the form that you are using?
+
+As mentioned above, this data set is aggregated. The data is likely gathered from various schools and centralized into a single data set.
+
+-   Aggregations were performed to calculate percentages and other metrics.
+
+-   Missing data, especially the ones related to the Economic Need Index, might have been derived from aggregated data using averages or other methods.
+
+-   To ensure privacy, certain values were replaced with generic labels like "Below 5%" and "Above 95%".
+
+-   Data might have been cleaned and standardized to ensure consistency across the data set.
+
+## If people are involved, were they aware of the data collection and if so, what purpose did they expect the data to be used for?
+
+Given that this data is related to public schools and is likely that parents have signed something that allowed the school to collect their information for official and administrative purposes. Parents, guardians, and school staff were probably aware of the data collection. They might have expected the data to be used for administrative purposes, policy planning, resource allocation, and to assess the needs of the student population.
+
+Especially in public schools, economic status information could be derived from things like subsidy or food stamps. The race, gender, English level and age are basic information that are collected upon school enrollment.
+
+# Data limitations
+
+## Identify any potential problems with your dataset.
+
+-   no school types
+
+-   only public schools
+
+-   **Scope of Data**: The data set only includes public schools, so the findings may not be representative of private, charter, or other types of schools in NYC.
+
+-   **Variable Definitions are not unified**
+
+    Inconsistent Definitions: Definitions of key variables, like "economic need" or "English language learners," may have evolved over time, affecting trend analyses.
+
+    Categorical Limitations: Categories such as race/ethnicity and economic status are often complex and may not be captured fully by the available data.
+
+-   **Covid-19 Impact**: The pandemic's impact started in early 2020, so data from 2017-18 and 2018-19 might not capture the pre-pandemic baseline accurately.
+
+# Exploratory data analysis
+
+Perform an (initial) exploratory data analysis.
+
+The dataset breaks down enrollment by grade level and demographic attributes (such as race/ethnicity, gender, economic need, and English learner status) for each school. This is conducive to comprehensive analysis, for example, one can examine racial diversity within specific grades in different schools, or analyze enrollment trends of English learners over the years. The same data can be used to understand the percentage of minorities in schools, which can help in the allocation and balance of special education resources and services
+
+## We posed questions such as:
+
+-   How did covid-19 affect school enrollment? Including total enrollment, enrollment by grade level (PK-12).
+
+-   How did covid-19 effect the enrollment of schools with different levels of funding? Are underserved schools affect more than schools with sufficient fundings.
+
+-   Did Covid-19 disproportionately affect school enrollment of minorities student/students of color?
+
+-   Did Covid-19 disproportionately affect school enrollment of students with disabilities?
+
+-   Did Covid-19 disproportionately affect school enrollment of students in poverty?
+
+-   Did Covid-19 disproportionately affect school enrollment of students who have challenges in leaning with the Anglish language?
+
+# Questions for reviewers
+
+List specific questions for your peer reviewers and project mentor to answer in giving you feedback on this phase.
+
+Based on the initial exploratory data analysis, do the findings seem valid and are they presented clearly?
+
+Are there any other angles or sub-questions that could add depth to the research?
+
+Are there any critical aspects of the project that seem to be missing or need rethinking?

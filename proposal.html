@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Project title</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Analyzing Impact of COVID-19 on NYC School Populations</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="dropdown-header">
+ <span class="menu-text">Home</span></li>
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">TEAM NAME</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./proposal.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Proposal</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./explore.html" rel="" target="">
+ <span class="menu-text">Exploratory data analysis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./presentation.html" rel="" target="">
+ <span class="menu-text">Presentation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./report.html" rel="" target="">
+ <span class="menu-text">Report</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./appendices.html" rel="" target="">
+ <span class="menu-text">Appendices</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-1" id="toc-data-1" class="nav-link active" data-scroll-target="#data-1">Data 1</a>
+  <ul class="collapse">
+  <li><a href="#problem-or-question" id="toc-problem-or-question" class="nav-link" data-scroll-target="#problem-or-question">Problem or question</a></li>
+  <li><a href="#introduction-and-data" id="toc-introduction-and-data" class="nav-link" data-scroll-target="#introduction-and-data">Introduction and data</a></li>
+  <li><a href="#glimpse-of-data-2" id="toc-glimpse-of-data-2" class="nav-link" data-scroll-target="#glimpse-of-data-2">Glimpse of data</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Project title</h1>
+<p class="subtitle lead">Proposal</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="data-1" class="level1">
+<h1>Data 1</h1>
+<section id="problem-or-question" class="level2">
+<h2 class="anchored" data-anchor-id="problem-or-question">Problem or question</h2>
+<ul>
+<li><p>Today’s music market is diversified and relies on Internet platforms, and songs from different cultural backgrounds, language backgrounds and music genres are likely to be popular all over the world. It is of great information value to make a statistical summary of the musical features of singers all over the world. By tallying information about various track attributes, such as popularity, acoustics, dancability, energy, and rhythm. Analyzing these properties can give industry professionals insight into which features are trending or most popular in electronic types at a given time. From a music creator’s perspective, emerging artists and producers can use this information to understand current trends in the electronic genre, helping them tailor their music to better suit contemporary tastes or identify unique niches. For example, a simple popularity analysis: Which artists have the most popular tracks on average? Or which specific tracks are most popular? This makes it easy for music companies to sign high-traffic artists in the future. We look forward to using randomForest to create a validation model and analyze it. Secondly, by comparing track mood and popularity index, we can judge the popular style of the future music market. In addition, from the perspective of music creation, ggplot2 is used to visualize the distribution of some features. To determine “What is the distribution of danceability, energy and valency in the established repertoire?” Or “Are more popular tracks generally more danceable or have more energy?” The basis for such problems.</p>
+<p><strong>Continuous</strong>:</p>
+<ul>
+<li><p><strong><code>duration_ms</code></strong>: The duration of the track in milliseconds.</p></li>
+<li><p><strong><code>loudness</code></strong>: The overall loudness of the track, measured in decibels.</p></li>
+<li><p><strong><code>tempo</code></strong>: The tempo of the track in beats per minute (BPM).</p></li>
+</ul>
+<!-- -->
+<ul>
+<li><p>popularity,key</p></li>
+<li></li>
+<li><p>Our goal and motivation is to help people identify which genres or artists are most popular and to help people measure the transformation or development of cultural phenomena by analyzing musical trends. In addition, we look forward to using data analysis to predict the future of world music trends and give music labels or streaming platforms to customize some future strategies. We model and filter the data we use by providing data packets compiled into a CSV file format on our website.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="introduction-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-and-data">Introduction and data</h2>
+<p>If you are using a data set:</p>
+<ul>
+<li><p>Identify the source of the data.</p></li>
+<li><p>State when and how it was originally collected (by the original data curator, not necessarily how you found the data).</p></li>
+<li><p>Write a brief description of the observations.</p></li>
+<li><p>For the Inform 5001 project designed by our team, after discussion, we finally decided to use the data set of the popularity of music artists we found on Kaggle to analyze and summarize the data rules, and determine the music characteristics of popular artists and the user popularity trend of world music. (https://www.kaggle.com/datasets/vicsuperman/prediction-of-music-genre?resource=download).</p>
+<p>The data is originally from Spotify.com. The author used Spotify API to collect this data.</p>
+<p>The data set is based on over 1.4 million music artists in the MusicBrainz database - their names, tags, and popularity (listeners/songs). Through data analysis, we expected to find important characteristics related to the artist’s creative form and the impact value of user traffic metrics.</p>
+<h2 id="glimpse-of-data" class="anchored">Glimpse of data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add code here</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>music <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/music_genre.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 50005 Columns: 18
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): artist_name, track_name, key, mode, tempo, obtained_date, music_genre
+dbl (11): instance_id, popularity, acousticness, danceability, duration_ms, ...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(music)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 50,005
+Columns: 18
+$ instance_id      &lt;dbl&gt; 32894, 46652, 30097, 62177, 24907, 89064, 43760, 3073…
+$ artist_name      &lt;chr&gt; "Röyksopp", "Thievery Corporation", "Dillon Francis",…
+$ track_name       &lt;chr&gt; "Röyksopp's Night Out", "The Shining Path", "Hurrican…
+$ popularity       &lt;dbl&gt; 27, 31, 28, 34, 32, 47, 46, 43, 39, 22, 30, 27, 31, 3…
+$ acousticness     &lt;dbl&gt; 4.68e-03, 1.27e-02, 3.06e-03, 2.54e-02, 4.65e-03, 5.2…
+$ danceability     &lt;dbl&gt; 0.652, 0.622, 0.620, 0.774, 0.638, 0.755, 0.572, 0.80…
+$ duration_ms      &lt;dbl&gt; -1, 218293, 215613, 166875, 222369, 519468, 214408, 4…
+$ energy           &lt;dbl&gt; 0.941, 0.890, 0.755, 0.700, 0.587, 0.731, 0.803, 0.70…
+$ instrumentalness &lt;dbl&gt; 7.92e-01, 9.50e-01, 1.18e-02, 2.53e-03, 9.09e-01, 8.5…
+$ key              &lt;chr&gt; "A#", "D", "G#", "C#", "F#", "D", "B", "G", "F", "A",…
+$ liveness         &lt;dbl&gt; 0.1150, 0.1240, 0.5340, 0.1570, 0.1570, 0.2160, 0.106…
+$ loudness         &lt;dbl&gt; -5.201, -7.043, -4.617, -4.498, -6.266, -10.517, -4.2…
+$ mode             &lt;chr&gt; "Minor", "Minor", "Major", "Major", "Major", "Minor",…
+$ speechiness      &lt;dbl&gt; 0.0748, 0.0300, 0.0345, 0.2390, 0.0413, 0.0412, 0.351…
+$ tempo            &lt;chr&gt; "100.889", "115.00200000000001", "127.994", "128.014"…
+$ obtained_date    &lt;chr&gt; "4-Apr", "4-Apr", "4-Apr", "4-Apr", "4-Apr", "4-Apr",…
+$ valence          &lt;dbl&gt; 0.7590, 0.5310, 0.3330, 0.2700, 0.3230, 0.6140, 0.230…
+$ music_genre      &lt;chr&gt; "Electronic", "Electronic", "Electronic", "Electronic…</code></pre>
+</div>
+</div>
+<h1 id="data-2">Data 2</h1>
+<h2 id="problem-or-question-1" class="anchored">Problem or question</h2>
+<ul>
+<li><p>With the rise of TikTok, the short video platform has become an indispensable part of social and entertainment. The large number of users and traffic makes the platform full of business opportunities. In this project, we seek to answer the question of how different music properties influence (independent variable) song popularity (dependent variable). This information will help us gain insight into the changing music industry landscape.</p>
+<p>Data modeling and visualization can help determine which musical features are more popular among TikTok users. This information can help artists tailor their work to maximize their impact on the platform and take advantage of the short video system’s popular push feature to further expand their video traffic.</p>
+<p>In addition, music labels and streaming platforms can use visual modeling to analyze forecast trends for 2023, prioritize the promotions of certain songs, and stratetize partnerships with TikTok influencers.</p></li>
+<li><p><strong>Dependent Variable:</strong></p>
+<ul>
+<li><strong><code>track_pop</code></strong>: As it represents the popularity of the track, this will be our target variable.</li>
+</ul></li>
+<li><p><strong>Independent Variables:</strong></p>
+<ul>
+<li><p>Musical Properties: <strong><code>danceability</code></strong>, <strong><code>energy</code></strong>, <strong><code>loudness</code></strong>, <strong><code>mode</code></strong>, <strong><code>key</code></strong>, <strong><code>speechiness</code></strong>, <strong><code>acousticness</code></strong>, <strong><code>instrumentalness</code></strong>, <strong><code>liveness</code></strong>, <strong><code>valence</code></strong>, <strong><code>tempo</code></strong>, <strong><code>time_signature</code></strong>, and <strong><code>duration_ms</code></strong>.</p></li>
+<li><p>Artist Influence: <strong><code>artist_name</code></strong> and <strong><code>artist_pop</code></strong>.</p></li>
+<li><p>We plan to build code for one or more predictive models (e.g., linear regression, random forest, etc.), produce data reports, and construct distribution and count plots (box plots, scatter plots) of numerical variables as visual AIDS. It is followed by detailed reports or visualizations of which musical characteristics are most influential in determining the popularity of a track</p></li>
+</ul></li>
+</ul>
+<h2 id="introduction-and-data-1" class="anchored">Introduction and data</h2>
+<p>Source of the data: <a href="https://www.kaggle.com/datasets/sveta151/tiktok-popular-songs-2022" class="uri">https://www.kaggle.com/datasets/sveta151/tiktok-popular-songs-2022</a>.</p>
+<p>For the inform 5001 project designed by our group, after discussion, we finally decided to use the Tiktok popular songs 2022 dataset we found on Kaggle to analyze and summarize the data rules and variables that specifically affect the popularity trend of tiktok videos. (HTTPS: / / www.kaggle.com/datasets/faryarmemon/usa-housing-market-factors). The data was originally collected using Spotify API, from the Spotify’s weekly top 200 TikTok songs. Sveta151, the original curator of the data, scraped the data using BeautifulSoup from <a href="https://charts.spotify.com/charts/overview/global" class="uri">https://charts.spotify.com/charts/overview/global</a>.</p>
+<p>The dataset contains track information such as: &nbsp;</p>
+<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; position of the song in the top chart</p>
+<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Track name</p>
+<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Artist name</p>
+<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Album name</p>
+<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; artist popularity (artist_pop)</p>
+<p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; track popularity (track_pop)</p>
+<p>and music properties such as:</p>
+<ul>
+<li><p>danceability</p></li>
+<li><p>energy</p></li>
+<li><p>key</p></li>
+<li><p>loudness</p></li>
+<li><p>mode</p></li>
+<li><p>speechiness</p></li>
+<li><p>acoustics</p></li>
+<li><p>instrumentals</p></li>
+<li><p>liveness</p></li>
+<li><p>valence</p></li>
+<li><p>tempo</p></li>
+<li><p>time_signature</p></li>
+<li><p>duration_ms</p></li>
+</ul>
+<p>We will build graphs with the data on several video features to further understand user preferences. We will also build powerful models to predict the popularity of future tracks and genres, which can help artists, producers and marketers make creative decisions for 2023 to get more user traffic. We will model and filter the data we chose by providing data packets compiled into a CSV file format. We expect to find correlations between content elements and user traffic through data analysis.</p>
+<h2 id="glimpse-of-data-1" class="anchored">Glimpse of data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add code here</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>TikTok <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/TikTok_songs_2022.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 263 Columns: 18
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (3): track_name, artist_name, album
+dbl (15): artist_pop, track_pop, danceability, energy, loudness, mode, key, ...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<h1 id="data-3">Data 3</h1>
+<h2 id="problem-or-question-2" class="anchored">Problem or question</h2>
+<h1 id="travel-insurance"><strong>Travel Insurance</strong></h1>
+<ul>
+<li>Identify the problem you will solve or the question you will answer</li>
+</ul>
+<p>How do different variables, notably travel destinations, affect the cost of travel insurance, and how can travelers utilize this knowledge to plan their trips wisely?</p>
+<p>By solving this issue, we hope to provide travelers with a tool or visual representation to help them comprehend how various locations and other factors could affect their insurance prices. Travelers will be given the information they need to make better decisions, which could improve their trip as a whole.</p>
+<ul>
+<li>Explain why you think this topic is important.</li>
+</ul>
+<p>Importance of this topic:<br>
+Since the end of the COVID-19 pandemic worldwide in 2022, international tourism has recovered in a rapid trend. As for international tourism, compared with domestic tourism, due to the different security degree and social environment in different regions, tourists’ tourism risks will increase. Travel insurance is an indispensable part of international tourism. Travel insurance plays a vital role in protecting travelers from unforeseen events that can lead to financial loss. For consumers, understanding the factors that affect the outcome of a claim can help them make informed decisions when purchasing insurance and filing claims. For insurance companies, an in-depth understanding of claims approval factors can help streamline the claims process, reduce fraudulent claims and improve customer satisfaction.<br>
+<br>
+</p>
+<ul>
+<li>Identify the types of data/variables you will use.<br>
+<br>
+Types of data/variables used:<br>
+Target variable:<br>
+Claim Status - This is the outcome we are trying to predict.<br>
+Predictor variables:<br>
+Organization Name (Organization)<br>
+Travel Insurance Agency Type (agency.type)<br>
+Travel Insurance Agency Distribution.Channel<br>
+Travel Insurance Product Name (Product.name)<br>
+Travel time (duration)<br>
+Travel Destination (Destination)<br>
+Travel Insurance Policy Sales (Net.Sales)<br>
+Commissions received by travel Insurance agencies (committees)<br>
+Gender of the insured<br>
+Age of the insured</li>
+</ul>
+<!-- -->
+<ul>
+<li>State the major deliverable(s) you will create to solve this problem/answer this question.</li>
+</ul>
+<p>Main deliverables:<br>
+Exploratory Data Analysis (EDA) reports: This will include visualizations and statistics that provide a comprehensive overview of data distribution, relationships between variables, and initial insights. We look forward to using R language for visual modeling, analysis and prediction based on the predicted trend or trend shown in the chart.<br>
+Factor Impact Report: A detailed, data-driven analysis highlighting the key factors that affect the outcome of a claim. This may involve hypothesis testing or other statistical analysis to identify important variables.<br>
+Documentation of model training and validation procedures<br>
+Model performance metrics (e.g., accuracy, precision, recall, F1 score, ROC curve)<br>
+Model deployment and usage recommendations<br>
+Recommendations and strategic insight reports: Based on analysis, provide actionable recommendations for consumers and insurers to improve the claims approval process, increase customer satisfaction, and potentially increase sales.<br>
+By completing these deliverables, we aim to demystify the travel insurance claims process and provide valuable insights for insurers and the insured.</p>
+<h2 id="introduction-and-data-2" class="anchored">Introduction and data</h2>
+<ul>
+<li><p>If you are using a dataset:</p>
+<ul>
+<li>Identify the source of the data.</li>
+</ul></li>
+</ul>
+<p>Data Source: Dataset accessed from Kaggle. Title: “Travel Insurance Dataset.” Uploaded by ZAHIER NASRUDIN. Date accessed: 10/11/2023.&nbsp;</p>
+<ul>
+<li>State when and how it was originally collected (by the original data curator, not necessarily how you found the data).</li>
+</ul>
+<p>Since the source of the data is not shown on the provenance. So we have no way of knowing.</p>
+<ul>
+<li>Write a brief description of the observations.</li>
+</ul>
+<p>For the inform 5001 project designed by our team, after discussion, we finally decided to use the travel insurance data set we found on Kaggle to analyze and summarize the data rules and variables that specifically affect the travel insurance commission. (https://www.kaggle.com/datasets/mhdzahier/travel-insurance) our goal and motivation is to use a few video features policy-holder data statistical data to construct a visual chart, To learn more about the composition of travel insurance charges. We look forward to building a strong model to establish the relationship between insurance commissions and travel destinations, which can help tourists to further judge the risk and cost performance of some areas to obtain a better travel experience. We model and filter the data we use by providing data packets compiled into a CSV file format on our website. This dataset is based on several attributes that can affect the cost of insurance. We hope to find the correlation between the characteristics of policyholders and the cost of insurance through data analysis.</p></li>
+</ul>
+</section>
+<section id="glimpse-of-data-2" class="level2">
+<h2 class="anchored" data-anchor-id="glimpse-of-data-2">Glimpse of data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add code here</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>insurance <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/travel insurance.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 63326 Columns: 11
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (7): Agency, Agency Type, Distribution Channel, Product Name, Claim, Des...
+dbl (4): Duration, Net Sales, Commision (in value), Age
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,12 @@
+---
+title: "TEAM NAME"
+subtitle: "INFO 5001 Project"
+format: html
+editor: visual
+---
+
+TODO: Add project abstract here.
+
+This project, titled "School Enrollment Project," aims to investigate the effects of the COVID-19 pandemic on New York City schools. Using demographic data spanning from the 2013-14 to the 2021-22 academic years, the study focuses on changes in school enrollment patterns during the pandemic. The analysis is directed towards understanding shifts in total and average enrollment figures, offering insights into how the pandemic has reshaped the educational landscape in NYC. This comprehensive study seeks to provide a detailed overview of the pandemic's impact on educational institutions, highlighting key trends and deviations in school enrollments during this challenging period
+
+TODO: Add links to published deliverable(s) here (if published at a separate location). Also update the navigation bar in `quarto.yml` to include a direct link to relevant locations.

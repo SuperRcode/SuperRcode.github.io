@@ -1,0 +1,46 @@
+---
+title: "School Enrollment Project"
+subtitle: "Stat Analysis"
+format: 
+  html:
+    toc: true
+    toc_float: true 
+editor: visual
+execute:
+  echo: true
+---
+
+# Load Packages 
+```{r}
+library(readr)
+library(tidyverse)
+```
+
+# Import Data
+```{r}
+schools <- read_csv("schools.csv")
+
+glimpse(schools)
+```
+# Statistical Tests 
+## 1. Techniques like ARIMA (AutoRegressive Integrated Moving Average) could be useful if we are forecasting future trends based on past data. 
+```{r}
+
+```
+
+## 2.To understand the differential impact of Covid-19 on various demographic groups, comparative analyses like t-tests (for comparing two groups) or ANOVA (for more than two groups) can be employed.       
+```{r}
+
+```
+
+## 3.To examine the relationships between different variables without assuming causality, correlation analysis can be helpful.
+
+```{r}
+
+```
+
+## 4. Regression Analysis: To explore relationships between variables (e.g., how economic status or race affects enrollment changes during Covid-19).
+```{r}
+
+```
+

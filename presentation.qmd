@@ -1,0 +1,270 @@
+---
+title: "NYC School Enrollment project"
+author: "Haoqi Liu, Helena Xiong, Ye Tong, Hong Chen"
+format: revealjs
+editor: visual
+execute:
+  echo: false
+---
+
+## Introduce the topic and motivation
+
+Impact of COVID-19 on New York City Schools: Understanding the Effects on Education
+
+-   Global Impact of COVID-19
+
+-   Focus on NYC Schools
+
+-   Key Demographics
+
+-   Insights for Future
+
+-   Broader Implications
+
+## Introduce the data
+
+-   Data Sources:
+    -   2017-18 to 2021-22 Demographic Snapshot (New York City Department of Education)
+    -   2013-18 Demographic Snapshot School (New York City Department of Education)
+-   Key Questions Addressed:
+    -   Enrollment changes due to COVID-19; Disproportionate impacts on minorities, students with disabilities, and economically disadvantaged students; Variations across schools with different funding levels.
+
+## Highlights from EDA
+
+::: panel-tabset
+### Enrollment
+
+```{r total-enrollment-visualization, echo=FALSE, fig.cap="Total Enrollment Changes", fig.width=7, fig.height=3}
+# R code to create the visualization for total enrollment
+
+library(tidyverse)
+schools <- read_csv('schools.csv')
+
+schools_summary <- schools |>
+  mutate(COVID_period = if_else(year < 2020, "Pre-COVID", "During-COVID"),
+         year = as.factor(year)) |> # Convert year to a factor
+  group_by(year, COVID_period) |>
+  summarise(mean_enrollment = mean(total_enrollment, na.rm = TRUE))
+
+# Create the Plot
+ggplot(schools_summary, aes(x = year, y = mean_enrollment, 
+                            color = COVID_period, 
+                            group = COVID_period)) +
+  geom_line() +
+  geom_point() + 
+  labs(title = "Average School Enrollment Over Years", 
+       x = "Year", 
+       y = "Average Enrollment") +
+  # Adjust x-axis labels for readability
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  
+```
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+<strong>Analysis:</strong> Trends Observed: The project revealed a significant decrease in both total and mean enrollments during COVID-19. This trend reflects the pandemic's direct impact on school attendance.
+:::
+
+### Minority
+
+```{r total-Minority Students visualization, echo=FALSE, fig.cap="Enrollment Changes Among Minority Students", fig.width=7, fig.height=3}
+
+# R code for analyzing the enrollment of minority students
+library(tidyverse)
+schools <- read_csv('schools.csv')
+
+
+
+covid_years <- c(2020, 2021)
+
+relevant_columns <- c("year", 
+                      "school_name",
+                      "total_enrollment", 
+                      "percent_white", 
+                      "percent_black", 
+                      "percent_hispanic", 
+                      "percent_asian", 
+                      "percent_native_american")
+
+filtered_schools <- schools |>
+  select(all_of(relevant_columns))
+
+correct_percentages <- function(x) {
+  ifelse(x > 1, x / 100, x)
+}
+
+corrected_schools <- filtered_schools |>
+  mutate(across(starts_with("percent"), correct_percentages))
+
+avg_enrollment_pre_covid <- corrected_schools |> 
+  filter(year < 2020) |>
+  summarise(across(starts_with("percent"), mean, na.rm = TRUE))
+
+avg_enrollment_during_covid <- corrected_schools |> 
+  filter(year >= 2020) |>
+  summarise(across(starts_with("percent"), mean, na.rm = TRUE))
+
+percentage_change <- (avg_enrollment_during_covid - avg_enrollment_pre_covid) / 
+  avg_enrollment_pre_covid * 100
+
+percentage_change_long <- percentage_change |>
+  pivot_longer(cols = everything(), names_to = "group", values_to = "change")
+ggplot(percentage_change_long, aes(x = group, y = change, fill = group)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  theme_minimal() +
+  labs(title = "Percentage Change in School Enrollment by Race (Pre-COVID vs. During COVID)",
+       x = "Racial Group",
+       y = "Percentage Change (%)") +
+  geom_text(aes(label = sprintf("%.1f%%", change)), vjust = -0.5) +
+  scale_x_discrete(labels = c(percent_white = "White", 
+                              percent_black = "Black", 
+                              percent_hispanic = "Hispanic", 
+                              percent_asian = "Asian", 
+                              percent_native_american = "Native American")) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "none")
+
+
+```
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+<strong>Analysis:</strong> Disproportionate Impact: The data suggests a disproportionate impact of COVID-19 on school enrollment among different racial groups. White and Asian student populations experienced significant decreases, while Hispanic and Native American groups saw slight increases.
+:::
+
+### poverty rate
+
+```{r Student poverty and changing levels of economic need visualization, echo=FALSE, fig.cap="poverty rate", fig.width=7, fig.height=3}
+
+# Data processing 
+mean_percent_poverty <- schools |>  
+  mutate(COVID_period = if_else(year < 2020, "Pre-COVID", "During-COVID"),
+         year = as.factor(year)) |>
+  group_by(year, COVID_period) |>
+  # calculating the mean percent poverty by year 
+  summarise(mean_percent_poverty = mean(percent_poverty, na.rm = TRUE))
+
+mean_economic_need <- schools |>  
+  mutate(COVID_period = if_else(year < 2020, "Pre-COVID", "During-COVID"),
+         year = as.factor(year)) |>
+  group_by(year, COVID_period) |>
+  # calculating the mean economic need by year 
+  summarise(mean_economic_need = 
+              mean(economic_need_index, na.rm = TRUE) / 100) |> 
+  # deleting year 2013 as there are no ecnomic need index data for this year
+  filter(year != "2013")  
+# visualizing the change in mean percentage of students in poverty by years
+ggplot(mean_percent_poverty, aes(x = year, y = mean_percent_poverty, 
+                                     group = COVID_period, 
+                                     color = COVID_period)) +
+  geom_line() +
+  geom_point() + 
+  labs(title = "Change in Mean Percentage of NYC Students in Poverty Over the Years",
+       x = "Year",
+       y = "Mean Percentage") +
+  theme_minimal() 
+
+
+```
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+<strong>Analysis:</strong> The plot for mean percent poverty demonstrates the stability in poverty levels over the years, with no significant spikes during the COVID-19 period.
+:::
+
+### economic needs
+
+```{r Student levels of economic need visualization, echo=FALSE, fig.cap="economic need", fig.width=7, fig.height=3}
+
+
+# visualizing changes in the average economic needs value of students by years
+ggplot(mean_economic_need, aes(x = year, y = mean_economic_need, 
+                                     group = COVID_period, 
+                                     color = COVID_period)) +
+  geom_line() +
+  geom_point() + 
+  labs(title = "Change in the Average Economic Needs of Students by Years",
+       x = "Year",
+       y = "Economic needs index") +
+  theme_minimal() 
+
+```
+
+::: {style="font-size: 0.4em;  margin: 0 auto; text-align: justify;"}
+<strong>Analysis:</strong> The mean economic need index showed a gradual increase from 2014 to 2019, indicating a rising trend in economic need over these years. In the Pre-COVID period, the economic need index peaked at 0.745 in 2019. During the COVID period, it was slightly lower but still relatively high, at 0.744 in 2020 and 0.738 in 2021. The plot for mean economic need shows a gradual increase over the years, with a slight decrease during the COVID-19 period but still remaining at relatively high levels.
+:::
+:::
+
+## Inference Modeling and analysis
+
+::: panel-tabset
+### Decision Tree Model
+
+RMSE (Root Mean Square Error): 118.0916
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+<strong>Analysis:</strong>Analysis: This RMSE value indicates that the average error in the predictions made by the decision tree model is about 118 students. The decision tree model, being relatively simple, might not have captured the complex interactions and nuances in the data. This model is useful for its interpretability but less so for high accuracy in predictions.
+:::
+
+### XGBoost Model
+
+RMSE: 15.87645
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+<strong>Analysis:</strong> The XGBoost model significantly outperformed the decision tree model with a much lower RMSE. This improvement suggests that the XGBoost model was able to capture more complex relationships in the data. An average prediction error of approximately 16 students is relatively small, indicating a high level of accuracy. This model is suitable for scenarios where prediction accuracy is paramount.
+:::
+
+### Random Model
+
+RMSE: 56.0548
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+<strong>Analysis:</strong> The random forest model, another ensemble learning method, also performed better than the decision tree but not as well as XGBoost. The RMSE of around 56 students suggests a moderate level of prediction error. This model strikes a balance between accuracy and interpretability and can be useful when one needs a more robust model than a decision tree without getting into the complexity of XGBoost.
+:::
+
+### Inference
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+<strong>Analysis:</strong>Overall Implications: Model Selection for Policy and Planning: The choice of model can significantly impact the accuracy of predictions for school enrollment. XGBoost, with its high accuracy, is particularly useful for detailed and precise planning and allocation of resources.
+
+Interpretability vs. Accuracy Trade-off: There's a clear trade-off between model simplicity (and thus interpretability) and prediction accuracy. Decision trees are easy to understand but less accurate, while XGBoost offers high accuracy but is more complex.
+
+Predictive Power and Application: The models, especially XGBoost, can be valuable tools for forecasting school enrollments, which is crucial for educational planning, resource allocation, and policy-making in New York City.
+:::
+:::
+
+## Conclusions + Future work
+
+::: panel-tabset
+### Conclusions
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+-   Clear decrease of total and mean enrollment in 2020 and 2021 in NYC schools
+
+-   Unclear how COVID affected poverty levels of student in 2020 and 2021 as they seem to be within normal bounds.
+
+-   COVID did not **disproportionately** affect school enrollment of student of color
+
+-   The percentage of students with disabilities slightly increased during COVID in comparison pre-COVID.
+
+-   The average number of English learners remained the same even during COVID.
+:::
+
+### Limitations
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+-   Only public schools
+
+-   Only NYC
+
+-   Inconsistent definitions
+:::
+
+### Future Work
+
+::: {style="font-size: 0.6em;  margin: 0 auto; text-align: justify;"}
+-   School data from other major cities other than NYC.
+
+-   Long term impact of COVID on education
+
+-   Understand more about the trends within our graphs.
+
+Note: Additional hypothesis tests and compiling the deliverable into public facing website
+:::
+:::

@@ -1,0 +1,167 @@
+[
+  {
+    "objectID": "proposal.html",
+    "href": "proposal.html",
+    "title": "Project title",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(skimr)"
+  },
+  {
+    "objectID": "proposal.html#problem-or-question",
+    "href": "proposal.html#problem-or-question",
+    "title": "Project title",
+    "section": "Problem or question",
+    "text": "Problem or question\n\nToday’s music market is diversified and relies on Internet platforms, and songs from different cultural backgrounds, language backgrounds and music genres are likely to be popular all over the world. It is of great information value to make a statistical summary of the musical features of singers all over the world. By tallying information about various track attributes, such as popularity, acoustics, dancability, energy, and rhythm. Analyzing these properties can give industry professionals insight into which features are trending or most popular in electronic types at a given time. From a music creator’s perspective, emerging artists and producers can use this information to understand current trends in the electronic genre, helping them tailor their music to better suit contemporary tastes or identify unique niches. For example, a simple popularity analysis: Which artists have the most popular tracks on average? Or which specific tracks are most popular? This makes it easy for music companies to sign high-traffic artists in the future. We look forward to using randomForest to create a validation model and analyze it. Secondly, by comparing track mood and popularity index, we can judge the popular style of the future music market. In addition, from the perspective of music creation, ggplot2 is used to visualize the distribution of some features. To determine “What is the distribution of danceability, energy and valency in the established repertoire?” Or “Are more popular tracks generally more danceable or have more energy?” The basis for such problems.\nContinuous:\n\nduration_ms: The duration of the track in milliseconds.\nloudness: The overall loudness of the track, measured in decibels.\ntempo: The tempo of the track in beats per minute (BPM).\n\n\n\npopularity,key\n\nOur goal and motivation is to help people identify which genres or artists are most popular and to help people measure the transformation or development of cultural phenomena by analyzing musical trends. In addition, we look forward to using data analysis to predict the future of world music trends and give music labels or streaming platforms to customize some future strategies. We model and filter the data we use by providing data packets compiled into a CSV file format on our website."
+  },
+  {
+    "objectID": "proposal.html#introduction-and-data",
+    "href": "proposal.html#introduction-and-data",
+    "title": "Project title",
+    "section": "Introduction and data",
+    "text": "Introduction and data\nIf you are using a data set:\n\nIdentify the source of the data.\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\nWrite a brief description of the observations.\nFor the Inform 5001 project designed by our team, after discussion, we finally decided to use the data set of the popularity of music artists we found on Kaggle to analyze and summarize the data rules, and determine the music characteristics of popular artists and the user popularity trend of world music. (https://www.kaggle.com/datasets/vicsuperman/prediction-of-music-genre?resource=download).\nThe data is originally from Spotify.com. The author used Spotify API to collect this data.\nThe data set is based on over 1.4 million music artists in the MusicBrainz database - their names, tags, and popularity (listeners/songs). Through data analysis, we expected to find important characteristics related to the artist’s creative form and the impact value of user traffic metrics.\nGlimpse of data\n\n# add code here\nmusic &lt;- read_csv(\"data/music_genre.csv\")\n\nRows: 50005 Columns: 18\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (7): artist_name, track_name, key, mode, tempo, obtained_date, music_genre\ndbl (11): instance_id, popularity, acousticness, danceability, duration_ms, ...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nglimpse(music)\n\nRows: 50,005\nColumns: 18\n$ instance_id      &lt;dbl&gt; 32894, 46652, 30097, 62177, 24907, 89064, 43760, 3073…\n$ artist_name      &lt;chr&gt; \"Röyksopp\", \"Thievery Corporation\", \"Dillon Francis\",…\n$ track_name       &lt;chr&gt; \"Röyksopp's Night Out\", \"The Shining Path\", \"Hurrican…\n$ popularity       &lt;dbl&gt; 27, 31, 28, 34, 32, 47, 46, 43, 39, 22, 30, 27, 31, 3…\n$ acousticness     &lt;dbl&gt; 4.68e-03, 1.27e-02, 3.06e-03, 2.54e-02, 4.65e-03, 5.2…\n$ danceability     &lt;dbl&gt; 0.652, 0.622, 0.620, 0.774, 0.638, 0.755, 0.572, 0.80…\n$ duration_ms      &lt;dbl&gt; -1, 218293, 215613, 166875, 222369, 519468, 214408, 4…\n$ energy           &lt;dbl&gt; 0.941, 0.890, 0.755, 0.700, 0.587, 0.731, 0.803, 0.70…\n$ instrumentalness &lt;dbl&gt; 7.92e-01, 9.50e-01, 1.18e-02, 2.53e-03, 9.09e-01, 8.5…\n$ key              &lt;chr&gt; \"A#\", \"D\", \"G#\", \"C#\", \"F#\", \"D\", \"B\", \"G\", \"F\", \"A\",…\n$ liveness         &lt;dbl&gt; 0.1150, 0.1240, 0.5340, 0.1570, 0.1570, 0.2160, 0.106…\n$ loudness         &lt;dbl&gt; -5.201, -7.043, -4.617, -4.498, -6.266, -10.517, -4.2…\n$ mode             &lt;chr&gt; \"Minor\", \"Minor\", \"Major\", \"Major\", \"Major\", \"Minor\",…\n$ speechiness      &lt;dbl&gt; 0.0748, 0.0300, 0.0345, 0.2390, 0.0413, 0.0412, 0.351…\n$ tempo            &lt;chr&gt; \"100.889\", \"115.00200000000001\", \"127.994\", \"128.014\"…\n$ obtained_date    &lt;chr&gt; \"4-Apr\", \"4-Apr\", \"4-Apr\", \"4-Apr\", \"4-Apr\", \"4-Apr\",…\n$ valence          &lt;dbl&gt; 0.7590, 0.5310, 0.3330, 0.2700, 0.3230, 0.6140, 0.230…\n$ music_genre      &lt;chr&gt; \"Electronic\", \"Electronic\", \"Electronic\", \"Electronic…\n\n\nData 2\nProblem or question\n\nWith the rise of TikTok, the short video platform has become an indispensable part of social and entertainment. The large number of users and traffic makes the platform full of business opportunities. In this project, we seek to answer the question of how different music properties influence (independent variable) song popularity (dependent variable). This information will help us gain insight into the changing music industry landscape.\nData modeling and visualization can help determine which musical features are more popular among TikTok users. This information can help artists tailor their work to maximize their impact on the platform and take advantage of the short video system’s popular push feature to further expand their video traffic.\nIn addition, music labels and streaming platforms can use visual modeling to analyze forecast trends for 2023, prioritize the promotions of certain songs, and stratetize partnerships with TikTok influencers.\nDependent Variable:\n\ntrack_pop: As it represents the popularity of the track, this will be our target variable.\n\nIndependent Variables:\n\nMusical Properties: danceability, energy, loudness, mode, key, speechiness, acousticness, instrumentalness, liveness, valence, tempo, time_signature, and duration_ms.\nArtist Influence: artist_name and artist_pop.\nWe plan to build code for one or more predictive models (e.g., linear regression, random forest, etc.), produce data reports, and construct distribution and count plots (box plots, scatter plots) of numerical variables as visual AIDS. It is followed by detailed reports or visualizations of which musical characteristics are most influential in determining the popularity of a track\n\n\nIntroduction and data\nSource of the data: https://www.kaggle.com/datasets/sveta151/tiktok-popular-songs-2022.\nFor the inform 5001 project designed by our group, after discussion, we finally decided to use the Tiktok popular songs 2022 dataset we found on Kaggle to analyze and summarize the data rules and variables that specifically affect the popularity trend of tiktok videos. (HTTPS: / / www.kaggle.com/datasets/faryarmemon/usa-housing-market-factors). The data was originally collected using Spotify API, from the Spotify's weekly top 200 TikTok songs. Sveta151, the original curator of the data, scraped the data using BeautifulSoup from https://charts.spotify.com/charts/overview/global.\nThe dataset contains track information such as:  \n·       position of the song in the top chart\n·       Track name\n·       Artist name\n·       Album name\n·       artist popularity (artist_pop)\n·       track popularity (track_pop)\nand music properties such as:\n\ndanceability\nenergy\nkey\nloudness\nmode\nspeechiness\nacoustics\ninstrumentals\nliveness\nvalence\ntempo\ntime_signature\nduration_ms\n\nWe will build graphs with the data on several video features to further understand user preferences. We will also build powerful models to predict the popularity of future tracks and genres, which can help artists, producers and marketers make creative decisions for 2023 to get more user traffic. We will model and filter the data we chose by providing data packets compiled into a CSV file format. We expect to find correlations between content elements and user traffic through data analysis.\nGlimpse of data\n\n# add code here\nTikTok &lt;- read_csv(\"data/TikTok_songs_2022.csv\")\n\nRows: 263 Columns: 18\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (3): track_name, artist_name, album\ndbl (15): artist_pop, track_pop, danceability, energy, loudness, mode, key, ...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nData 3\nProblem or question\nTravel Insurance\n\nIdentify the problem you will solve or the question you will answer\n\nHow do different variables, notably travel destinations, affect the cost of travel insurance, and how can travelers utilize this knowledge to plan their trips wisely?\nBy solving this issue, we hope to provide travelers with a tool or visual representation to help them comprehend how various locations and other factors could affect their insurance prices. Travelers will be given the information they need to make better decisions, which could improve their trip as a whole.\n\nExplain why you think this topic is important.\n\nImportance of this topic:\nSince the end of the COVID-19 pandemic worldwide in 2022, international tourism has recovered in a rapid trend. As for international tourism, compared with domestic tourism, due to the different security degree and social environment in different regions, tourists’ tourism risks will increase. Travel insurance is an indispensable part of international tourism. Travel insurance plays a vital role in protecting travelers from unforeseen events that can lead to financial loss. For consumers, understanding the factors that affect the outcome of a claim can help them make informed decisions when purchasing insurance and filing claims. For insurance companies, an in-depth understanding of claims approval factors can help streamline the claims process, reduce fraudulent claims and improve customer satisfaction.\n\n\n\nIdentify the types of data/variables you will use.\n\nTypes of data/variables used:\nTarget variable:\nClaim Status - This is the outcome we are trying to predict.\nPredictor variables:\nOrganization Name (Organization)\nTravel Insurance Agency Type (agency.type)\nTravel Insurance Agency Distribution.Channel\nTravel Insurance Product Name (Product.name)\nTravel time (duration)\nTravel Destination (Destination)\nTravel Insurance Policy Sales (Net.Sales)\nCommissions received by travel Insurance agencies (committees)\nGender of the insured\nAge of the insured\n\n\n\nState the major deliverable(s) you will create to solve this problem/answer this question.\n\nMain deliverables:\nExploratory Data Analysis (EDA) reports: This will include visualizations and statistics that provide a comprehensive overview of data distribution, relationships between variables, and initial insights. We look forward to using R language for visual modeling, analysis and prediction based on the predicted trend or trend shown in the chart.\nFactor Impact Report: A detailed, data-driven analysis highlighting the key factors that affect the outcome of a claim. This may involve hypothesis testing or other statistical analysis to identify important variables.\nDocumentation of model training and validation procedures\nModel performance metrics (e.g., accuracy, precision, recall, F1 score, ROC curve)\nModel deployment and usage recommendations\nRecommendations and strategic insight reports: Based on analysis, provide actionable recommendations for consumers and insurers to improve the claims approval process, increase customer satisfaction, and potentially increase sales.\nBy completing these deliverables, we aim to demystify the travel insurance claims process and provide valuable insights for insurers and the insured.\nIntroduction and data\n\nIf you are using a dataset:\n\nIdentify the source of the data.\n\n\nData Source: Dataset accessed from Kaggle. Title: “Travel Insurance Dataset.” Uploaded by ZAHIER NASRUDIN. Date accessed: 10/11/2023. \n\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\n\nSince the source of the data is not shown on the provenance. So we have no way of knowing.\n\nWrite a brief description of the observations.\n\nFor the inform 5001 project designed by our team, after discussion, we finally decided to use the travel insurance data set we found on Kaggle to analyze and summarize the data rules and variables that specifically affect the travel insurance commission. (https://www.kaggle.com/datasets/mhdzahier/travel-insurance) our goal and motivation is to use a few video features policy-holder data statistical data to construct a visual chart, To learn more about the composition of travel insurance charges. We look forward to building a strong model to establish the relationship between insurance commissions and travel destinations, which can help tourists to further judge the risk and cost performance of some areas to obtain a better travel experience. We model and filter the data we use by providing data packets compiled into a CSV file format on our website. This dataset is based on several attributes that can affect the cost of insurance. We hope to find the correlation between the characteristics of policyholders and the cost of insurance through data analysis."
+  },
+  {
+    "objectID": "proposal.html#glimpse-of-data",
+    "href": "proposal.html#glimpse-of-data",
+    "title": "Project title",
+    "section": "Glimpse of data",
+    "text": "Glimpse of data\n\n# add code here"
+  },
+  {
+    "objectID": "proposal.html#problem-or-question-1",
+    "href": "proposal.html#problem-or-question-1",
+    "title": "Project title",
+    "section": "Problem or question",
+    "text": "Problem or question\n\nIdentify the problem you will solve or the question you will answer\nExplain why you think this topic is important.\nIdentify the types of data/variables you will use.\nState the major deliverable(s) you will create to solve this problem/answer this question."
+  },
+  {
+    "objectID": "proposal.html#introduction-and-data-1",
+    "href": "proposal.html#introduction-and-data-1",
+    "title": "Project title",
+    "section": "Introduction and data",
+    "text": "Introduction and data\nIf you are using a dataset:\n\nIdentify the source of the data.\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\nWrite a brief description of the observations."
+  },
+  {
+    "objectID": "proposal.html#glimpse-of-data-1",
+    "href": "proposal.html#glimpse-of-data-1",
+    "title": "Project title",
+    "section": "Glimpse of data",
+    "text": "Glimpse of data\n\n# add code here"
+  },
+  {
+    "objectID": "proposal.html#problem-or-question-2",
+    "href": "proposal.html#problem-or-question-2",
+    "title": "Project title",
+    "section": "Problem or question",
+    "text": "Problem or question\n\nIdentify the problem you will solve or the question you will answer\nExplain why you think this topic is important.\nIdentify the types of data/variables you will use.\nState the major deliverable(s) you will create to solve this problem/answer this question."
+  },
+  {
+    "objectID": "proposal.html#introduction-and-data-2",
+    "href": "proposal.html#introduction-and-data-2",
+    "title": "Project title",
+    "section": "Introduction and data",
+    "text": "Introduction and data\nIf you are using a dataset:\n\nIdentify the source of the data.\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\nWrite a brief description of the observations."
+  },
+  {
+    "objectID": "proposal.html#glimpse-of-data-2",
+    "href": "proposal.html#glimpse-of-data-2",
+    "title": "Project title",
+    "section": "Glimpse of data",
+    "text": "Glimpse of data\n\n# add code here\ninsurance &lt;- read_csv(\"data/travel insurance.csv\")\n\nRows: 63326 Columns: 11\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (7): Agency, Agency Type, Distribution Channel, Product Name, Claim, Des...\ndbl (4): Duration, Net Sales, Commision (in value), Age\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "appendices.html",
+    "href": "appendices.html",
+    "title": "Project title",
+    "section": "",
+    "text": "Data cleaning\n\n\nOther appendicies (as necessary)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This project was developed by [team name] For INFO 5001: Computing for Information Science at Cornell University. The team is comprised of the following team members.\n\nTeam member 1: One sentence description of Team member 1 (e.g., year, major, etc.).\nTeam member 2: One sentence description of Team member 2 (e.g., year, major, etc.).\nTeam member 3: One sentence description of Team member 3 (e.g., year, major, etc.).\nTeam member 4: One sentence description of Team member 4 (e.g., year, major, etc.).\n…"
+  },
+  {
+    "objectID": "presentation.html#introduce-the-topic-and-motivation",
+    "href": "presentation.html#introduce-the-topic-and-motivation",
+    "title": "Presentation title",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
+  },
+  {
+    "objectID": "presentation.html#introduce-the-data",
+    "href": "presentation.html#introduce-the-data",
+    "title": "Presentation title",
+    "section": "Introduce the data",
+    "text": "Introduce the data\nWhen you click the Render button a document will be generated that includes:\n\nContent authored with markdown\nOutput from executable code"
+  },
+  {
+    "objectID": "presentation.html#highlights-from-eda",
+    "href": "presentation.html#highlights-from-eda",
+    "title": "Presentation title",
+    "section": "Highlights from EDA",
+    "text": "Highlights from EDA\nWhen you click the Render button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n\n[1] 2"
+  },
+  {
+    "objectID": "presentation.html#inferencemodelingother-analysis",
+    "href": "presentation.html#inferencemodelingother-analysis",
+    "title": "Presentation title",
+    "section": "Inference/modeling/other analysis",
+    "text": "Inference/modeling/other analysis\nYour results here"
+  },
+  {
+    "objectID": "presentation.html#inferencemodelingother-analysis-1",
+    "href": "presentation.html#inferencemodelingother-analysis-1",
+    "title": "Presentation title",
+    "section": "Inference/modeling/other analysis",
+    "text": "Inference/modeling/other analysis\nYour results here"
+  },
+  {
+    "objectID": "presentation.html#conclusions-future-work",
+    "href": "presentation.html#conclusions-future-work",
+    "title": "Presentation title",
+    "section": "Conclusions + future work",
+    "text": "Conclusions + future work"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "TEAM NAME",
+    "section": "",
+    "text": "TODO: Add project abstract here.\nTODO: Add links to published deliverable(s) here (if published at a separate location). Also update the navigation bar in quarto.yml to include a direct link to relevant locations."
+  },
+  {
+    "objectID": "report.html#data-description",
+    "href": "report.html#data-description",
+    "title": "Project title",
+    "section": "Data description",
+    "text": "Data description"
+  },
+  {
+    "objectID": "report.html#design-process",
+    "href": "report.html#design-process",
+    "title": "Project title",
+    "section": "Design process",
+    "text": "Design process"
+  },
+  {
+    "objectID": "explore.html",
+    "href": "explore.html",
+    "title": "Project title",
+    "section": "",
+<<<<<<< HEAD
+    "text": "library(readr)\nlibrary(tidyr)\nlibrary(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nObjective(s)\n\n\nData collection and cleaning\nHave an initial draft of your data cleaning appendix. Document every step that takes your raw data file(s) and turns it into the analysis-ready data set that you would submit with your final project. Include text narrative describing your data collection (downloading, scraping, surveys, etc) and any additional data curation/cleaning (merging data frames, filtering, transformations of variables, etc). Include code for data curation/cleaning, but not collection.\n\n# upload data \n\nnyc_schools &lt;- read_csv(\"2017-18__-_2021-22_Demographic_Snapshot_20231020.csv\")\n\nRows: 9251 Columns: 44\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (6): DBN, School Name, Year, # Poverty, % Poverty, Economic Need Index\ndbl (38): Total Enrollment, Grade 3K, Grade PK (Half Day & Full Day), Grade ...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\nnyc_schools\n\n# A tibble: 9,251 × 44\n   DBN    `School Name`             Year    `Total Enrollment` `Grade 3K`\n   &lt;chr&gt;  &lt;chr&gt;                     &lt;chr&gt;                &lt;dbl&gt;      &lt;dbl&gt;\n 1 01M015 P.S. 015 Roberto Clemente 2017-18                190          0\n 2 01M015 P.S. 015 Roberto Clemente 2018-19                174          0\n 3 01M015 P.S. 015 Roberto Clemente 2019-20                190          0\n 4 01M015 P.S. 015 Roberto Clemente 2020-21                193          0\n 5 01M015 P.S. 015 Roberto Clemente 2021-22                179          0\n 6 01M019 P.S. 019 Asher Levy       2017-18                257          0\n 7 01M019 P.S. 019 Asher Levy       2018-19                249          0\n 8 01M019 P.S. 019 Asher Levy       2019-20                236          0\n 9 01M019 P.S. 019 Asher Levy       2020-21                212          0\n10 01M019 P.S. 019 Asher Levy       2021-22                176          9\n# ℹ 9,241 more rows\n# ℹ 39 more variables: `Grade PK (Half Day & Full Day)` &lt;dbl&gt;, `Grade K` &lt;dbl&gt;,\n#   `Grade 1` &lt;dbl&gt;, `Grade 2` &lt;dbl&gt;, `Grade 3` &lt;dbl&gt;, `Grade 4` &lt;dbl&gt;,\n#   `Grade 5` &lt;dbl&gt;, `Grade 6` &lt;dbl&gt;, `Grade 7` &lt;dbl&gt;, `Grade 8` &lt;dbl&gt;,\n#   `Grade 9` &lt;dbl&gt;, `Grade 10` &lt;dbl&gt;, `Grade 11` &lt;dbl&gt;, `Grade 12` &lt;dbl&gt;,\n#   `# Female` &lt;dbl&gt;, `% Female` &lt;dbl&gt;, `# Male` &lt;dbl&gt;, `% Male` &lt;dbl&gt;,\n#   `# Asian` &lt;dbl&gt;, `% Asian` &lt;dbl&gt;, `# Black` &lt;dbl&gt;, `% Black` &lt;dbl&gt;, …\n\n\n\n#glimpse of data \nglimpse(nyc_schools)\n\nRows: 9,251\nColumns: 44\n$ DBN                              &lt;chr&gt; \"01M015\", \"01M015\", \"01M015\", \"01M015…\n$ `School Name`                    &lt;chr&gt; \"P.S. 015 Roberto Clemente\", \"P.S. 01…\n$ Year                             &lt;chr&gt; \"2017-18\", \"2018-19\", \"2019-20\", \"202…\n$ `Total Enrollment`               &lt;dbl&gt; 190, 174, 190, 193, 179, 257, 249, 23…\n$ `Grade 3K`                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0…\n$ `Grade PK (Half Day & Full Day)` &lt;dbl&gt; 17, 13, 14, 17, 15, 13, 10, 16, 13, 7…\n$ `Grade K`                        &lt;dbl&gt; 28, 20, 29, 29, 30, 34, 30, 25, 23, 2…\n$ `Grade 1`                        &lt;dbl&gt; 32, 33, 28, 29, 26, 38, 39, 27, 25, 2…\n$ `Grade 2`                        &lt;dbl&gt; 33, 30, 38, 27, 24, 42, 43, 39, 27, 2…\n$ `Grade 3`                        &lt;dbl&gt; 23, 30, 33, 30, 22, 46, 41, 45, 38, 2…\n$ `Grade 4`                        &lt;dbl&gt; 31, 20, 29, 32, 33, 42, 44, 42, 44, 3…\n$ `Grade 5`                        &lt;dbl&gt; 26, 28, 19, 29, 29, 42, 42, 42, 42, 3…\n$ `Grade 6`                        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ `Grade 7`                        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ `Grade 8`                        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ `Grade 9`                        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ `Grade 10`                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ `Grade 11`                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ `Grade 12`                       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ `# Female`                       &lt;dbl&gt; 99, 85, 94, 101, 96, 114, 114, 110, 9…\n$ `% Female`                       &lt;dbl&gt; 0.521, 0.489, 0.495, 0.523, 0.536, 0.…\n$ `# Male`                         &lt;dbl&gt; 91, 89, 96, 92, 83, 143, 135, 126, 11…\n$ `% Male`                         &lt;dbl&gt; 0.479, 0.511, 0.505, 0.477, 0.464, 0.…\n$ `# Asian`                        &lt;dbl&gt; 20, 24, 27, 26, 21, 23, 14, 11, 13, 1…\n$ `% Asian`                        &lt;dbl&gt; 0.105, 0.138, 0.142, 0.135, 0.117, 0.…\n$ `# Black`                        &lt;dbl&gt; 52, 48, 56, 53, 50, 49, 52, 49, 41, 3…\n$ `% Black`                        &lt;dbl&gt; 0.274, 0.276, 0.295, 0.275, 0.279, 0.…\n$ `# Hispanic`                     &lt;dbl&gt; 110, 95, 96, 102, 93, 166, 156, 148, …\n$ `% Hispanic`                     &lt;dbl&gt; 0.579, 0.546, 0.505, 0.528, 0.520, 0.…\n$ `# Multi-Racial`                 &lt;dbl&gt; 1, 0, 0, 1, 3, 3, 8, 8, 7, 8, 14, 12,…\n$ `% Multi-Racial`                 &lt;dbl&gt; 0.005, 0.000, 0.000, 0.005, 0.017, 0.…\n$ `# Native American`              &lt;dbl&gt; 1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 4, 3, 5…\n$ `% Native American`              &lt;dbl&gt; 0.005, 0.006, 0.011, 0.000, 0.000, 0.…\n$ `# White`                        &lt;dbl&gt; 6, 6, 9, 11, 12, 16, 18, 19, 17, 21, …\n$ `% White`                        &lt;dbl&gt; 0.032, 0.034, 0.047, 0.057, 0.067, 0.…\n$ `# Missing Race/Ethnicity Data`  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 1, 1, 1…\n$ `% Missing Race/Ethnicity Data`  &lt;dbl&gt; 0.000, 0.000, 0.000, 0.000, 0.000, 0.…\n$ `# Students with Disabilities`   &lt;dbl&gt; 49, 39, 46, 44, 38, 90, 102, 94, 87, …\n$ `% Students with Disabilities`   &lt;dbl&gt; 0.258, 0.224, 0.242, 0.228, 0.212, 0.…\n$ `# English Language Learners`    &lt;dbl&gt; 8, 8, 17, 21, 11, 8, 8, 8, 9, 6, 86, …\n$ `% English Language Learners`    &lt;dbl&gt; 0.042, 0.046, 0.089, 0.109, 0.061, 0.…\n$ `# Poverty`                      &lt;chr&gt; \"161\", \"147\", \"155\", \"161\", \"150\", \"1…\n$ `% Poverty`                      &lt;chr&gt; \"84.7%\", \"84.5%\", \"81.6%\", \"83.4%\", \"…\n$ `Economic Need Index`            &lt;chr&gt; \"89.0%\", \"88.8%\", \"86.7%\", \"86.4%\", \"…\n\n\n\n\nData description\nHave an initial draft of your data description section. Your data description should be about your analysis-ready data.\n\n\nData limitations\nIdentify any potential problems with your dataset.\n\n\nExploratory data analysis\nPerform an (initial) exploratory data analysis.\n\n\nQuestions for reviewers\nList specific questions for your peer reviewers and project mentor to answer in giving you feedback on this phase."
+
+    "text": "Objective(s)\nState the question(s) you are answering or the problem(s) you are solving clearly.\n\n\nData collection and cleaning\nHave an initial draft of your data cleaning appendix. Document every step that takes your raw data file(s) and turns it into the analysis-ready data set that you would submit with your final project. Include text narrative describing your data collection (downloading, scraping, surveys, etc) and any additional data curation/cleaning (merging data frames, filtering, transformations of variables, etc). Include code for data curation/cleaning, but not collection.\n\n\nData description\nHave an initial draft of your data description section. Your data description should be about your analysis-ready data.\n\n\nData limitations\nIdentify any potential problems with your dataset.\n\n\nExploratory data analysis\nPerform an (initial) exploratory data analysis.\n\n\nQuestions for reviewers\nList specific questions for your peer reviewers and project mentor to answer in giving you feedback on this phase."
+
+  },
+  {
+    "objectID": "presentation.html",
+    "href": "presentation.html",
+    "title": "Presentation title",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
+  }
+]

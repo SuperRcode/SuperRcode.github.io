@@ -1,0 +1,631 @@
+---
+title: "School Enrollment Project"
+subtitle: "Report"
+format: 
+  html:
+    toc: true
+    toc_float: true 
+editor: visual
+execute:
+  echo: true
+---
+
+# Introduction
+
+## Objectives
+
+The data contains demographic information for NYC schools between the years 2013 (2013-14) and 2021 (2021-22). Our objective for this project is to explore how Covid-19 affects the NYC schools. We will consider how COVID affected education through attributes such as total and average school enrollment, enrollment of students of different race, enrollment of students with disability, economic status of students, etc. Covid-19 started affecting schools in the US during March 2019.
+
+## Load packages
+
+```{r}
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+library(snakecase)
+library(stringr)
+library(lubridate) 
+library(tidyverse)
+```
+
+## Data import and cleaning
+
+We chose two datasets from the NYC department of education. The first dataset "nyc_schools_13_to_18" contains enrollment information of NYC schools from 2013 to 2018. The second dataset "nyc_schools_17_to_22" enrollment information of NYC schools from 2017 to 2022
+
+[nyc_schools_13_to_18](https://data.cityofnewyork.us/Education/2013-2018-Demographic-Snapshot-School/s52a-8aq6)
+
+[nyc_schools_17_to_22](https://data.cityofnewyork.us/Education/2017-18-2021-22-Demographic-Snapshot/c7ru-d68s)
+
+```{r}
+# importing initial datasets 
+nyc_schools_13_to_18 <- read_csv("2013_-_2018_Demographic_Snapshot_School_20231024.csv")
+
+nyc_schools_17_to_22 <- read_csv("2017-18__-_2021-22_Demographic_Snapshot_20231020.csv")
+
+glimpse(nyc_schools_13_to_18)
+```
+
+```{r}
+glimpse(nyc_schools_17_to_22)
+```
+
+```{r}
+# deleting all rows with the years "2017-18" in nyc_schools_13_to_18
+# information is already contained in nyc_schools_17_to_22
+nyc_schools_13_to_18_fix <- nyc_schools_13_to_18 |> 
+  filter(Year != "2017-18") 
+
+```
+
+In nyc_schools_13_to_18, "\# Poverty" and "% Poverty" are both in double type. In nyc_schools_17_to_22, both are in character strings because there are schools with above 95% poverty, which is written as "Above 95%" in both the "\# Poverty" and "% Poverty" and columns.
+
+The chunk below turns the "\# Poverty" and "% Poverty" columns in into character strings in nyc_schools_13_to_18 so the two dataset can be merged
+
+```{r}
+nyc_schools_13_to_18_fix <- nyc_schools_13_to_18_fix |> 
+  mutate(`% Poverty` = as.character(`% Poverty`), 
+         `# Poverty` = as.character(`# Poverty`))
+```
+
+```{r}
+# creating a joined dataset 
+schools <- 
+  # joining the two data sets.
+  bind_rows(nyc_schools_13_to_18_fix, nyc_schools_17_to_22) |> 
+  # turn values in Year column from YYYY-YY to YYYY. E.g. 2013-24 to 2013 
+  mutate("Year" = substr(Year, 1, 4)) |> 
+  arrange(DBN)
+
+# turning all column names to snakecase
+colnames(schools) <- tolower(gsub(" ", "_", colnames(schools)))
+
+# deleting  all '#' in column names to avoid confusing R
+colnames(schools) <- gsub("#_", "", colnames(schools))
+
+# turning all "%" in column names to "percent" to avoid confusing R
+colnames(schools) <- gsub("%", "percent", colnames(schools))
+```
+
+```{r}
+# organizing columns so they make sense 
+schools <- schools |> 
+  # deleting grade_3k because most schools don't have information on it. 
+  select(-grade_3k) |> 
+  # putting all the race and ethnicity columns next to each other 
+  select(1:`percent_white`, 
+         `multi-racial`, 
+         `percent_multi-racial`, 
+         `native_american`, 
+         `percent_native_american`, 
+         `missing_race/ethnicity_data`, 
+         `percent_missing_race/ethnicity_data`,           
+         everything())
+```
+
+```{r}
+# cleaning column content structure and type 
+schools <- schools |> 
+  # turning all "No Data" to N/A in economic_need_index column 
+  mutate(economic_need_index = ifelse(economic_need_index == "No Data", NA, 
+                                      economic_need_index)) |> 
+  # turning percentage and character values to numeric 
+  mutate(`percent_poverty` = as.numeric(gsub("%", "", `percent_poverty`))) |> 
+  mutate(`economic_need_index` = 
+           as.numeric(gsub("%", "", `economic_need_index`))) |> 
+  mutate(`poverty` = as.numeric(`poverty`)) |> 
+  mutate(`year` = as.numeric(`year`))
+
+schools
+```
+
+```{r}
+# writing the final dataset into a csv file 
+# write.csv(schools, "schools.csv", row.names=FALSE)
+```
+
+## Data Description
+
+```{r}
+# glimpse of the final dataset 
+glimpse(schools)
+```
+
+### Data Dictionary
+
+The schools dataset contains 46 attributes (columns) and 16,379 observations (rows). The dataset is arranged by DBN of schools in NYC, with the same DBN and school name but increasing years in consecutive rows. In other words, the grain of the dataset is in one row/record per school per year.
+
+Descriptive information for each school includes: school_name and dbn.
+
+-   dbn: DBN (District Borough Number) is the combination of the District Number, the letter code for the borough, and the number of the school.
+
+-   school_name: full name of schools.
+
+-   year: year (containing years from 2013 to 2021).
+
+-   total_enrollment: total number of students enrolled in a particular school in a year.
+
+-   grade_pk\_(half_day\_&\_full_day): number of students enrolled in pre-kindergarten in a particular school in a year.
+
+-   grade_k: number of students enrolled in kindergarten in a particular school in a year.
+
+-   grade_1: number of students enrolled in grade 1 in a particular school in a year.
+
+-   grade_2: number of students enrolled in grade 2 in a particular school in a year.
+
+-   The same trend continues for columns grade_3, grade_4 grade_5, grade_6, grade_7, grade_8, grade_9, grade_10, grade_11, and grade_12.
+
+-   female: the number of female students enrolled in a particular school in a year.
+
+-   percent_female: the percentage of female students enrolled in a particular school in a year.
+
+-   male: the number of male students enrolled in a particular school in a year.
+
+-   percent_male: the percentage of male students enrolled in a particular school in a year.
+
+-   asian: the number of asian students enrolled in a particular school in a year.
+
+-   percent_asian: the percentage of asian students enrolled in a particular school in a year.
+
+-   black: the number of black students enrolled in a particular school in a year.
+
+-   percent_black: the percentage of black students enrolled in a particular school in a year.
+
+-   the same trend goes for columns, hispanic, percent_hispanic, multiple_race_categories_not_represented, percent_multiple_race_categories_not_represented, white, percent_white, multi-racial, percent_multi-racial, native_american, percent_native_american, missing_race/ethnicity_data, percent_missing_race/ethnicity_data
+
+-   students_with_disabilities: the number of students with disabilities enrolled in a particular school in a year.
+
+-   percent_students_with_disabilities: the percentage of students with disabilities enrolled in a particular school in a year.
+
+-   english_language_learners: the number of students whose first language is not english enrolled in a particular school in a year.
+
+-   percent_english_language_learners: the percentage of students whose first language is not english enrolled in a particular school in a year.
+
+-   poverty: the number of students in enrolled in a particular school in a year.
+
+-   percent_poverty: the percentage of students in enrolled in a particular school in a year.
+
+-   economic_need_index: Economic need index by school. The economic need index is a number ranging from 0-1 (it can also be represented as a percentage).
+
+The student's Economic Need Value is 1.0 if: - The student is eligible for public assistance from the NYC Human Resources Administration (HRA); - The student lived in temporary housing in the past four years; or - The student is in high school, has a home language other than English, and entered the NYC DOE for the first time within the last four years.
+
+If a school is more than 10 percentage points above the citywide average, it is skewed toward lower incomes; if a school is more than 10 percentage points below the citywide average, it is skewed toward higher incomes.
+
+(Economic Need Index)\[https://data.cccnewyork.org/data/bar/1371/student-economic-need-index#1371/a/1/1622/127\]
+
+# Approach and Justifications
+
+We decided to first make a few visualizations on the trends in school enrollment. Then we used three machine learning models to predict what future school enrollment would look like if the covid continued.
+
+# Visualizations
+
+## How did covid-19 affect school total enrollment?
+
+```{r}
+# processing data 
+df_long <- schools |>
+  select(year, starts_with("grade_")) |>
+  filter() |>
+  pivot_longer(cols = starts_with("grade_"), 
+               names_to = "grade", 
+               values_to = "enrollment") |>
+  filter(enrollment != 0) |>
+  mutate(grade = str_remove(grade, "grade_")) |> 
+  mutate(grade = str_remove(grade, "_\\(half_day_&_full_day\\)")) |> 
+  group_by(year, grade) |>
+  summarize(total_enrollment = sum(enrollment)) 
+
+grade_order <- c("pk", "k", as.character(1:12))
+
+df_long <- df_long |>
+  mutate(grade = factor(grade, levels = grade_order)) |> 
+  arrange(year, grade) 
+
+df_long
+
+glimpse(df_long)
+```
+
+```{r}
+# visualization of school total enrollment throughout the years 
+
+options(repr.plot.height = 8)
+
+df_long |> 
+  ggplot(aes(x = as.factor(year), y = total_enrollment, 
+             group = grade, color = grade)) +
+  geom_point() + 
+  geom_line() +
+  labs(title = "Enrollment Change in NYC schools Over the Years",
+       subtitle = "by Grade Level", 
+       x = "Year",
+       y = "Number of Students") +
+  theme_minimal() +
+  facet_wrap(~ grade, ncol = 3) +  
+  theme(legend.position = "none") 
+```
+
+As we cannot see significant trends in changes in students enrollment throughout the years when separated by grade level, we decided to visualize changes in students enrollment throughout the years with all grade levels combined.
+
+```{r}
+# total enrollment by year 
+total_enrollment_by_year <- schools |>
+  mutate(COVID_period = if_else(year < 2020, "Pre-COVID", "During-COVID"),
+         year = as.factor(year)) |>
+  group_by(year, COVID_period) |>
+  summarise(total_enrollment = sum(total_enrollment, na.rm = TRUE))
+
+total_enrollment_by_year
+```
+
+```{r}
+# visualizing total enrollment by year
+ggplot(total_enrollment_by_year, aes(x = year, y = total_enrollment, 
+                                     group = COVID_period, 
+                                     color = COVID_period)) +
+  geom_line() +
+  geom_point() + 
+  labs(title = "Change in Total Enrollment in NYC schools Over the Years",
+       x = "Year",
+       y = "Number of Students") +
+  theme_minimal() 
+```
+
+## How did Covid-19 affect school mean enrollment?
+
+```{r}
+# Preprocess the Data
+# Add a COVID period variable and summarize the data
+schools_summary <- schools |>
+  mutate(COVID_period = if_else(year < 2020, "Pre-COVID", "During-COVID"),
+         year = as.factor(year)) |> # Convert year to a factor
+  group_by(year, COVID_period) |>
+  summarise(mean_enrollment = mean(total_enrollment, na.rm = TRUE))
+
+# Create the Plot
+ggplot(schools_summary, aes(x = year, y = mean_enrollment, 
+                            color = COVID_period, 
+                            group = COVID_period)) +
+  geom_line() +
+  geom_point() + 
+  labs(title = "Average School Enrollment Over Years", 
+       x = "Year", 
+       y = "Average Enrollment") +
+  # Adjust x-axis labels for readability
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  
+```
+
+The graphs above shows a steep drop from 2019 to 2020 and from 2020 to 2021, corresponding to the covid-19 years.The graphs showed that both total enrollment and mean enrollment of students were decreased during the covid-19 years.
+
+## How did covid-19 effect the poverty and economic needs levels of students?
+
+```{r}
+# Data processing 
+mean_percent_poverty <- schools |>  
+  mutate(COVID_period = if_else(year < 2020, "Pre-COVID", "During-COVID"),
+         year = as.factor(year)) |>
+  group_by(year, COVID_period) |>
+  # calculating the mean percent poverty by year 
+  summarise(mean_percent_poverty = mean(percent_poverty, na.rm = TRUE))
+
+mean_economic_need <- schools |>  
+  mutate(COVID_period = if_else(year < 2020, "Pre-COVID", "During-COVID"),
+         year = as.factor(year)) |>
+  group_by(year, COVID_period) |>
+  # calculating the mean economic need by year 
+  summarise(mean_economic_need = 
+              mean(economic_need_index, na.rm = TRUE) / 100) |> 
+  # deleting year 2013 as there are no ecnomic need index data for this year
+  filter(year != "2013")  
+  
+mean_percent_poverty
+mean_economic_need
+```
+
+```{r}
+# visualizing the change in mean percentage of students in poverty by years
+ggplot(mean_percent_poverty, aes(x = year, y = mean_percent_poverty, 
+                                     group = COVID_period, 
+                                     color = COVID_period)) +
+  geom_line() +
+  geom_point() + 
+  labs(title = "Change in Mean Percentage of NYC Students in Poverty Over the Years",
+       x = "Year",
+       y = "Number of Students") +
+  theme_minimal() 
+
+```
+
+```{r}
+# visualizing changes in the average economic needs value of students by years
+ggplot(mean_economic_need, aes(x = year, y = mean_economic_need, 
+                                     group = COVID_period, 
+                                     color = COVID_period)) +
+  geom_line() +
+  geom_point() + 
+  labs(title = "Change in the Average Economic Needs of Students by Years",
+       x = "Year",
+       y = "Number of Students") +
+  theme_minimal() 
+```
+
+## Did Covid-19 disproportionately affect school enrollment of minorities students/ student of color?
+
+```{r}
+covid_years <- c(2020, 2021)
+
+relevant_columns <- c("year", 
+                      "school_name",
+                      "total_enrollment", 
+                      "percent_white", 
+                      "percent_black", 
+                      "percent_hispanic", 
+                      "percent_asian", 
+                      "percent_native_american")
+
+filtered_schools <- schools |>
+  select(all_of(relevant_columns))
+
+correct_percentages <- function(x) {
+  ifelse(x > 1, x / 100, x)
+}
+
+
+corrected_schools <- filtered_schools |>
+  mutate(across(starts_with("percent"), correct_percentages))
+
+
+avg_enrollment_pre_covid <- corrected_schools |> 
+    filter(year < 2020) |>
+    summarise(across(starts_with("percent"), mean, na.rm = TRUE))
+
+avg_enrollment_during_covid <- corrected_schools |> 
+    filter(year >= 2020) |>
+    summarise(across(starts_with("percent"), mean, na.rm = TRUE))
+
+percentage_change <- (avg_enrollment_during_covid - avg_enrollment_pre_covid) / 
+  avg_enrollment_pre_covid * 100
+
+percentage_change
+
+
+percentage_change_long <- percentage_change |>
+  pivot_longer(cols = everything(), names_to = "group", values_to = "change")
+
+ggplot(percentage_change_long, aes(x = group, y = change, fill = group)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  theme_minimal() +
+  labs(title = "Percentage Change in School Enrollment by Race (Pre-COVID vs. During COVID)",
+       x = "Racial Group",
+       y = "Percentage Change (%)") +
+  geom_text(aes(label = sprintf("%.1f%%", change)), vjust = -0.5) +
+  scale_x_discrete(labels = c(percent_white = "White", 
+                              percent_black = "Black", 
+                              percent_hispanic = "Hispanic", 
+                              percent_asian = "Asian", 
+                              percent_native_american = "Native American")) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "none")
+
+```
+
+## Did Covid-19 disproportionately affect school enrollment of students with disabilities?
+
+```{r}
+# Select relevant columns
+relevant_columns_disabilities <- c("year", "total_enrollment", "students_with_disabilities")
+
+# Filter and correct data if needed
+filtered_schools_disabilities <- schools |>
+  select(all_of(relevant_columns_disabilities)) |>
+  mutate(percent_students_with_disabilities = students_with_disabilities / total_enrollment)
+
+# Calculate average percentage of students with disabilities pre-COVID
+avg_pre_covid_disabilities <- filtered_schools_disabilities |> 
+  filter(year < 2020) |>
+  summarise(mean_percent_disabilities = mean(percent_students_with_disabilities, na.rm = TRUE))
+
+# Calculate average percentage of students with disabilities during COVID
+avg_during_covid_disabilities <- filtered_schools_disabilities |> 
+  filter(year >= 2020) |>
+  summarise(mean_percent_disabilities = mean(percent_students_with_disabilities, na.rm = TRUE))
+
+# Calculate percentage change
+percentage_change_disabilities <- (avg_during_covid_disabilities - avg_pre_covid_disabilities) / avg_pre_covid_disabilities * 100
+
+# Print percentage change
+percentage_change_disabilities
+
+# Data for plotting
+data_to_plot <- data.frame(Period = c("Pre-COVID", "During COVID"),
+                           Percentage = c(avg_pre_covid_disabilities$mean_percent_disabilities, 
+                                          avg_during_covid_disabilities$mean_percent_disabilities))
+
+# Using reorder() to explicitly set the order of the bars
+data_to_plot$Period <- factor(data_to_plot$Period, levels = c("Pre-COVID", "During COVID"))
+
+# Plot
+ggplot(data_to_plot, aes(x = reorder(Period, Percentage), y = Percentage, fill = Period)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  theme_minimal() +
+  labs(title = "Percentage of Students with Disabilities (Pre-COVID vs. During COVID)",
+       x = "Period",
+       y = "Percentage of Students with Disabilities") +
+  scale_fill_brewer(palette = "Set1")
+```
+
+## Did Covid-19 disproportionately affect school enrollment of students who have challenges in leaning with the English language?
+
+```{r}
+# Preprocess the Data
+# Categorize the data into pre-COVID and during-COVID periods
+schools <- schools |>
+  mutate(COVID_period = if_else(year < 2020, "Pre-COVID", "During-COVID"),
+         year = as.factor(year))  # Treat year as categorical
+
+# Summarize the data for plotting
+summary_data <- schools |>
+  group_by(year, COVID_period) |>
+  summarise(mean_english_learners = mean(english_language_learners, 
+                                         na.rm = TRUE))
+
+# Create a Bar Plot
+ggplot(summary_data, aes(x = year, y = mean_english_learners, 
+                         fill = COVID_period)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  labs(title = "Average Number of English Language Learners Over Years", 
+       x = "Year", 
+       y = "Average Number of English Language Learners") +
+  theme_minimal()
+
+```
+
+# Models
+
+## Design process
+
+1.  Decision Tree Model
+
+RMSE (Root Mean Square Error): 118.0916
+
+Analysis: This RMSE value indicates that the average error in the predictions made by the decision tree model is about 118 students. The decision tree model, being relatively simple, might not have captured the complex interactions and nuances in the data. This model is useful for its interpretability but less so for high accuracy in predictions.
+
+2.  XGBoost Model
+
+RMSE: 15.87645
+
+Analysis: The XGBoost model significantly outperformed the decision tree model with a much lower RMSE. This improvement suggests that the XGBoost model was able to capture more complex relationships in the data. An average prediction error of approximately 16 students is relatively small, indicating a high level of accuracy. This model is suitable for scenarios where prediction accuracy is paramount.
+
+3.  Random Forest Model RMSE: 56.0548
+
+Analysis: The random forest model, another ensemble learning method, also performed better than the decision tree but not as well as XGBoost. The RMSE of around 56 students suggests a moderate level of prediction error. This model strikes a balance between accuracy and interpretability and can be useful when one needs a more robust model than a decision tree without getting into the complexity of XGBoost.
+
+Overall Implications: Model Selection for Policy and Planning: The choice of model can significantly impact the accuracy of predictions for school enrollment. XGBoost, with its high accuracy, is particularly useful for detailed and precise planning and allocation of resources. Interpretability vs. Accuracy Trade-off: There's a clear trade-off between model simplicity (and thus interpretability) and prediction accuracy. Decision trees are easy to understand but less accurate, while XGBoost offers high accuracy but is more complex. Predictive Power and Application: The models, especially XGBoost, can be valuable tools for forecasting school enrollments, which is crucial for educational planning, resource allocation, and policy-making in New York City.
+
+```{r}
+library(readr)
+data <- read_csv("schools.csv")
+#Multivariate Imputation using pmm method
+library(mice)
+data = data.frame(data)
+data2 = mice(data)
+data3 = complete(data2)
+
+data3$covid19 <- ifelse(data3$year < 2019, 0, 1)
+
+
+# Load  libraries
+library(caret)
+library(randomForest)
+library(xgboost)
+library(rpart)
+
+data3$asian = data3$black = data3$hispanic = data3$multi.racial = NULL
+
+data3$percent_asian = 
+  data3$percent_black = 
+  data3$percent_hispanic = 
+  data3$percent_multi.racial = NULL
+
+# Split the data into training and testing sets
+set.seed(2023)
+trainIndex <- createDataPartition(data3$total_enrollment,
+                                  p = 0.8, 
+                                  list = FALSE)
+
+trainData <- data3[trainIndex, -c(1:3)]
+testData <- data3[-trainIndex, -c(1:3)]
+
+
+#Baseline Model - Decision tree 
+baselineModel <- rpart(total_enrollment~ ., data = trainData)
+
+predictions <- predict(baselineModel , testData)
+
+# RMSE for Decision tree on test data
+rmse <- sqrt(mean((predictions - testData[, 1])^2))
+rmse
+
+
+#XGBOOST Model
+# prepare the input matrix and response variable
+train_matrix <- as.matrix(trainData[, -1])
+train_response <- trainData[,1]
+
+# Train the xgboost model
+xgb_model <- xgboost(data = train_matrix, 
+                     label = train_response, 
+                      nrounds = 500,
+                     objective = "reg:squarederror")
+
+# predict  for  XGBOOST  on test data 
+test_matrix <- as.matrix(testData[, -1])
+predictions <- predict(xgb_model, newdata = test_matrix)
+
+# RMSE for  XGBOOST  on test data 
+rmse <- sqrt(mean((predictions - testData[, 1])^2))
+rmse
+
+
+
+
+# Ensemble Model - Random forest
+set.seed(2023)
+ensembleModel <- randomForest(total_enrollment~ ., data = trainData, 
+                              sampsize = 1000)
+
+predictions <- predict(ensembleModel , testData)
+
+# RMSE for Decision tree on test data
+rmse <- sqrt(mean((predictions - testData[, 1])^2))
+rmse
+
+```
+
+# Limitations
+
+## Data limitations
+
+-   no school types
+
+-   only public schools
+
+-   **Scope of Data**: The data set only includes public schools, so the findings may not be representative of private, charter, or other types of schools in NYC.
+
+-   **Variable Definitions are not unified**
+
+    Inconsistent Definitions: Definitions of key variables, like "economic need" or "English language learners," may have evolved over time, affecting trend analyses.
+
+    Categorical Limitations: Categories such as race/ethnicity and economic status are often complex and may not be captured fully by the available data.
+
+-   **Covid-19 Impact**: The pandemic's impact started in early 2020, so data from 2017-18 and 2018-19 might not capture the pre-pandemic baseline accurately.
+
+## Analysis Limitations
+
+# Additional Information on the Dataset
+
+## Why was this dataset created?
+
+This dataset is created by the city of New York City about a comprehensive overview of student demographics across NYC schools. This data can help stakeholders, including policymakers, educators, and researchers to understand the diverse student population within NYC and make informed decisions related to educational programs, resources allocation, and policy planning.
+
+## Who funded the creation of the dataset?
+
+The dataset appears to be related to NYC schools, so it was likely funded and maintained by the New York City Department of Education or a related governmental body.
+
+## What processes might have influenced what data was observed and recorded and what was not?
+
+The data within the data set needed to be measurable. It's likely that this data set came from a larger data set with more comprehensive data related to all things related to education. This data set specifically focuses on student's ethnicity, disability, and economic status.
+
+One factor that we noticed is that these are aggregate data without further breakdown of individuals. This is likely due to privacy concerns to mask student identities.
+
+## If people are involved, were they aware of the data collection and if so, what purpose did they expect the data to be used for?
+
+Given that this data is related to public schools and is likely that parents have signed something that allowed the school to collect their information for official and administrative purposes. Parents, guardians, and school staff were probably aware of the data collection. They might have expected the data to be used for administrative purposes, policy planning, resource allocation, and to assess the needs of the student population.
+
+Especially in public schools, economic status information could be derived from things like subsidy or food stamps. The race, gender, English level and age are basic information that are collected upon school enrollment.
+
+# Acknowledgments
+
+We extend our sincere gratitude to NYC Open Data for providing the invaluable datasets that formed the foundation of our data analysis project.
+
+We would also like to express our appreciation to Dr. Benjamin Soltoff for his teaching, guidance, and mentorship throughout the course.

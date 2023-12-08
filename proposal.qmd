@@ -1,0 +1,217 @@
+---
+title: "Project title"
+subtitle: "Proposal"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: load-pkgs
+#| message: false
+
+library(tidyverse)
+library(skimr)
+```
+
+# Data 1
+
+## Problem or question
+
+-   Today's music market is diversified and relies on Internet platforms, and songs from different cultural backgrounds, language backgrounds and music genres are likely to be popular all over the world. It is of great information value to make a statistical summary of the musical features of singers all over the world. By tallying information about various track attributes, such as popularity, acoustics, dancability, energy, and rhythm. Analyzing these properties can give industry professionals insight into which features are trending or most popular in electronic types at a given time. From a music creator's perspective, emerging artists and producers can use this information to understand current trends in the electronic genre, helping them tailor their music to better suit contemporary tastes or identify unique niches. For example, a simple popularity analysis: Which artists have the most popular tracks on average? Or which specific tracks are most popular? This makes it easy for music companies to sign high-traffic artists in the future. We look forward to using randomForest to create a validation model and analyze it. Secondly, by comparing track mood and popularity index, we can judge the popular style of the future music market. In addition, from the perspective of music creation, ggplot2 is used to visualize the distribution of some features. To determine "What is the distribution of danceability, energy and valency in the established repertoire?" Or "Are more popular tracks generally more danceable or have more energy?" The basis for such problems.
+
+    **Continuous**:
+
+    -   **`duration_ms`**: The duration of the track in milliseconds.
+
+    -   **`loudness`**: The overall loudness of the track, measured in decibels.
+
+    -   **`tempo`**: The tempo of the track in beats per minute (BPM).
+
+    <!-- -->
+
+    -   popularity,key
+
+    -   
+
+    -   Our goal and motivation is to help people identify which genres or artists are most popular and to help people measure the transformation or development of cultural phenomena by analyzing musical trends. In addition, we look forward to using data analysis to predict the future of world music trends and give music labels or streaming platforms to customize some future strategies. We model and filter the data we use by providing data packets compiled into a CSV file format on our website.
+
+## Introduction and data
+
+If you are using a data set:
+
+-   Identify the source of the data.
+
+-   State when and how it was originally collected (by the original data curator, not necessarily how you found the data).
+
+-   Write a brief description of the observations.
+
+-   For the Inform 5001 project designed by our team, after discussion, we finally decided to use the data set of the popularity of music artists we found on Kaggle to analyze and summarize the data rules, and determine the music characteristics of popular artists and the user popularity trend of world music. (https://www.kaggle.com/datasets/vicsuperman/prediction-of-music-genre?resource=download).
+
+    The data is originally from Spotify.com. The author used Spotify API to collect this data.
+
+    The data set is based on over 1.4 million music artists in the MusicBrainz database - their names, tags, and popularity (listeners/songs). Through data analysis, we expected to find important characteristics related to the artist's creative form and the impact value of user traffic metrics.
+
+    ## Glimpse of data
+
+    ```{r}
+    #| label: load-data-1
+
+    # add code here
+    music <- read_csv("data/music_genre.csv")
+
+    glimpse(music)
+    ```
+
+    # Data 2
+
+    ## Problem or question
+
+    -   With the rise of TikTok, the short video platform has become an indispensable part of social and entertainment. The large number of users and traffic makes the platform full of business opportunities. In this project, we seek to answer the question of how different music properties influence (independent variable) song popularity (dependent variable). This information will help us gain insight into the changing music industry landscape.
+
+        Data modeling and visualization can help determine which musical features are more popular among TikTok users. This information can help artists tailor their work to maximize their impact on the platform and take advantage of the short video system's popular push feature to further expand their video traffic.
+
+        In addition, music labels and streaming platforms can use visual modeling to analyze forecast trends for 2023, prioritize the promotions of certain songs, and stratetize partnerships with TikTok influencers.
+
+    -   **Dependent Variable:**
+
+        -   **`track_pop`**: As it represents the popularity of the track, this will be our target variable.
+
+    -   **Independent Variables:**
+
+        -   Musical Properties: **`danceability`**, **`energy`**, **`loudness`**, **`mode`**, **`key`**, **`speechiness`**, **`acousticness`**, **`instrumentalness`**, **`liveness`**, **`valence`**, **`tempo`**, **`time_signature`**, and **`duration_ms`**.
+
+        -   Artist Influence: **`artist_name`** and **`artist_pop`**.
+
+        -   We plan to build code for one or more predictive models (e.g., linear regression, random forest, etc.), produce data reports, and construct distribution and count plots (box plots, scatter plots) of numerical variables as visual AIDS. It is followed by detailed reports or visualizations of which musical characteristics are most influential in determining the popularity of a track
+
+    ## Introduction and data
+
+    Source of the data: <https://www.kaggle.com/datasets/sveta151/tiktok-popular-songs-2022>.
+
+    For the inform 5001 project designed by our group, after discussion, we finally decided to use the Tiktok popular songs 2022 dataset we found on Kaggle to analyze and summarize the data rules and variables that specifically affect the popularity trend of tiktok videos. (HTTPS: / / www.kaggle.com/datasets/faryarmemon/usa-housing-market-factors). The data was originally collected using Spotify API, from the Spotify's weekly top 200 TikTok songs. Sveta151, the original curator of the data, scraped the data using BeautifulSoup from <https://charts.spotify.com/charts/overview/global>.
+
+    The dataset contains track information such as:  
+
+    ·       position of the song in the top chart
+
+    ·       Track name
+
+    ·       Artist name
+
+    ·       Album name
+
+    ·       artist popularity (artist_pop)
+
+    ·       track popularity (track_pop)
+
+    and music properties such as:
+
+    -   danceability
+
+    -   energy
+
+    -   key
+
+    -   loudness
+
+    -   mode
+
+    -   speechiness
+
+    -   acoustics
+
+    -   instrumentals
+
+    -   liveness
+
+    -   valence
+
+    -   tempo
+
+    -   time_signature
+
+    -   duration_ms
+
+    We will build graphs with the data on several video features to further understand user preferences. We will also build powerful models to predict the popularity of future tracks and genres, which can help artists, producers and marketers make creative decisions for 2023 to get more user traffic. We will model and filter the data we chose by providing data packets compiled into a CSV file format. We expect to find correlations between content elements and user traffic through data analysis.
+
+    ## Glimpse of data
+
+    ```{r}
+    #| label: load-data-2
+
+    # add code here
+    TikTok <- read_csv("data/TikTok_songs_2022.csv")
+    ```
+
+    # Data 3
+
+    ## Problem or question
+
+    # **Travel Insurance**
+
+    -   Identify the problem you will solve or the question you will answer
+
+    How do different variables, notably travel destinations, affect the cost of travel insurance, and how can travelers utilize this knowledge to plan their trips wisely?
+
+    By solving this issue, we hope to provide travelers with a tool or visual representation to help them comprehend how various locations and other factors could affect their insurance prices. Travelers will be given the information they need to make better decisions, which could improve their trip as a whole.
+
+    -   Explain why you think this topic is important.
+
+    Importance of this topic:\
+    Since the end of the COVID-19 pandemic worldwide in 2022, international tourism has recovered in a rapid trend. As for international tourism, compared with domestic tourism, due to the different security degree and social environment in different regions, tourists' tourism risks will increase. Travel insurance is an indispensable part of international tourism. Travel insurance plays a vital role in protecting travelers from unforeseen events that can lead to financial loss. For consumers, understanding the factors that affect the outcome of a claim can help them make informed decisions when purchasing insurance and filing claims. For insurance companies, an in-depth understanding of claims approval factors can help streamline the claims process, reduce fraudulent claims and improve customer satisfaction.\
+    \
+
+    -   Identify the types of data/variables you will use.\
+        \
+        Types of data/variables used:\
+        Target variable:\
+        Claim Status - This is the outcome we are trying to predict.\
+        Predictor variables:\
+        Organization Name (Organization)\
+        Travel Insurance Agency Type (agency.type)\
+        Travel Insurance Agency Distribution.Channel\
+        Travel Insurance Product Name (Product.name)\
+        Travel time (duration)\
+        Travel Destination (Destination)\
+        Travel Insurance Policy Sales (Net.Sales)\
+        Commissions received by travel Insurance agencies (committees)\
+        Gender of the insured\
+        Age of the insured
+
+    <!-- -->
+
+    -   State the major deliverable(s) you will create to solve this problem/answer this question.
+
+    Main deliverables:\
+    Exploratory Data Analysis (EDA) reports: This will include visualizations and statistics that provide a comprehensive overview of data distribution, relationships between variables, and initial insights. We look forward to using R language for visual modeling, analysis and prediction based on the predicted trend or trend shown in the chart.\
+    Factor Impact Report: A detailed, data-driven analysis highlighting the key factors that affect the outcome of a claim. This may involve hypothesis testing or other statistical analysis to identify important variables.\
+    Documentation of model training and validation procedures\
+    Model performance metrics (e.g., accuracy, precision, recall, F1 score, ROC curve)\
+    Model deployment and usage recommendations\
+    Recommendations and strategic insight reports: Based on analysis, provide actionable recommendations for consumers and insurers to improve the claims approval process, increase customer satisfaction, and potentially increase sales.\
+    By completing these deliverables, we aim to demystify the travel insurance claims process and provide valuable insights for insurers and the insured.
+
+    ## Introduction and data
+
+    -   If you are using a dataset:
+
+        -   Identify the source of the data.
+
+    Data Source: Dataset accessed from Kaggle. Title: "Travel Insurance Dataset." Uploaded by ZAHIER NASRUDIN. Date accessed: 10/11/2023. 
+
+    -   State when and how it was originally collected (by the original data curator, not necessarily how you found the data).
+
+    Since the source of the data is not shown on the provenance. So we have no way of knowing.
+
+    -   Write a brief description of the observations.
+
+    For the inform 5001 project designed by our team, after discussion, we finally decided to use the travel insurance data set we found on Kaggle to analyze and summarize the data rules and variables that specifically affect the travel insurance commission. (https://www.kaggle.com/datasets/mhdzahier/travel-insurance) our goal and motivation is to use a few video features policy-holder data statistical data to construct a visual chart, To learn more about the composition of travel insurance charges. We look forward to building a strong model to establish the relationship between insurance commissions and travel destinations, which can help tourists to further judge the risk and cost performance of some areas to obtain a better travel experience. We model and filter the data we use by providing data packets compiled into a CSV file format on our website. This dataset is based on several attributes that can affect the cost of insurance. We hope to find the correlation between the characteristics of policyholders and the cost of insurance through data analysis.
+
+## Glimpse of data
+
+```{r}
+#| label: load-data-3
+
+# add code here
+insurance <- read_csv("data/travel insurance.csv")
+```
